@@ -1,0 +1,106 @@
+* {
+    font-family: Shadows Into Light;
+}
+
+a {
+    color: rgb(0, 0, 0);
+}
+
+a:hover {
+    color: rgb(255, 184, 28);
+}
+
+.location-group{
+    padding-top: 1%;
+}
+
+.explore-body{
+    text-align: left;
+    justify-content: left;
+    margin-top: 2%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    border: 0.5px solid #000000;
+}
+.map-group {
+    margin-top: 5%;
+    padding-left: 0%;
+}
+
+.map-container {
+    width: 100%;
+    height: 70vh;
+    border: 0.5px solid #000000;
+}
+
+.search-group{
+    display: flex;                  /* establish flex container */
+    flex-direction: row;            /* default value; can be omitted */
+    flex-wrap: nowrap;              /* default value; can be omitted */
+    justify-content: space-between;
+    padding-top: 2%;
+    width: 100%;
+}
+
+.combobox-input{
+    height: 50px;
+    border: 0.5px solid #000000;
+    display: inline;
+    width: 100%;
+}
+
+.cb {
+    width: 50%;
+}
+
+.advanced-search-button-group{
+    display: inline-block;
+}
+
+.advanced-search-group{
+    margin-top: 5%;
+    margin-bottom: 3%;
+}
+
+.places-group {
+    padding-top: 3%;
+    font-size: 5px;
+}
+
+.location-card {
+    border: 0.5px solid #000000;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-left: 2%;
+    display: flex;
+    align-items: center;
+}
+
+
+
+.location-card-navigate{
+    margin-left: auto; 
+    margin-right: 2%;
+    display: inline;
+}
+
+.location-card-detail, .location-card-detail-data {
+    display: inline;
+}
+
+
+.price-slider-group {
+    width: 50%;
+}
+
+.explore-price-label {
+    margin-top: 1%;
+}
+
+.menu-item{
+    display: block;
+}

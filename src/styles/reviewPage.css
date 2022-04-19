@@ -1,0 +1,44 @@
+html,
+body {
+    text-align: left;
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.review-page-body {
+    text-align: left;
+    justify-content: left;
+    margin-top: 2%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    border: 0.5px solid #000000;
+}
+
+.review-rating-text, .review-description {
+    margin-top: 2%;
+}
+
+.review-button-group {
+    margin-top: 3%;
+}
+
+.review-post-review-submit {
+    margin-right: 1%;
+}
+
+

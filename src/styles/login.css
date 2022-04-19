@@ -1,0 +1,66 @@
+a {
+    color: rgb(0, 0, 0);
+}
+
+a:hover {
+    color: rgb(255, 184, 28);
+}
+
+.login-page {
+    background-image: url('../assets/yosemiteMountain.jpg') ; 
+    background-size: cover;
+    height: 100vh;
+}
+
+.login-body {
+    font-family: Shadows Into Light;
+    height: 75%;
+    width: 28%;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    background-color: #ffffff;
+    opacity: 90%;
+}
+
+.welcome-tag {
+    padding-top: 20px;
+    padding-bottom: 25px;
+}
+
+.username-group {
+    padding-top: 20px;
+    padding-bottom: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.password-group {
+    padding-bottom: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.login-text {
+    text-decoration: none;
+    color: #000000;
+}
+    
+  
+.forgot-password,
+.forgot-password a {
+    padding-top: 10px;
+    margin: 0;
+}
+
+.proceedAsGuest {
+    padding-top: 25%;
+    padding-left: 60%;
+}
+
+.submit {
+    width: 40%;
+}

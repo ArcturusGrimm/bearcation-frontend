@@ -1,0 +1,79 @@
+* {
+    font-family: Shadows Into Light;
+}
+
+a {
+    color: rgb(0, 0, 0);
+}
+
+a:hover {
+    color: rgb(255, 184, 28);
+}
+
+.facility-body{
+    text-align: left;
+    justify-content: left;
+    margin-top: 2%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    border: 0.5px solid #000000;
+}
+
+.facility-name{
+    width: 60%;
+}
+
+.facility-price{
+    width: 25%;
+}
+
+.map-group {
+    padding-left: 0%;
+}
+
+.facility-map-container {
+    width: 100%;
+    height: 10vh;
+    border: 0.5px solid #000000;
+}
+
+.facility-group{
+    justify-content: left;
+    align-items: left;
+    padding-top: 2%;
+    padding-bottom: 1%;
+}
+
+.facility-name, .facility-price, .facility-description {
+    margin-bottom: 2%;
+}
+
+.street-address-name {
+    margin-top: 5%;
+    margin-bottom: 2%;
+}
+
+.city-name {
+    width: 30%;
+    margin-right: 15%;
+    display: inline;
+}
+.state-name {
+    width: 20%;
+    margin-right: 15%;
+    display: inline;
+}
+.zip-number {
+    width: 20%;
+    display: inline;
+}
+
+.add-facility-submit {
+    margin-top: 5%;
+    margin-left: 85%;
+    width: 15%;
+}

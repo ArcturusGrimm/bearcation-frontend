@@ -1,0 +1,52 @@
+html,
+body {
+    text-align: left;
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.location-page-body {
+    text-align: left;
+    justify-content: left;
+    margin-top: 2%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    border: 0.5px solid #000000;
+}
+
+.location-name-text {
+    padding-bottom: 3%;
+}
+
+.location-description-text {
+    width: 60%;
+    padding-bottom: 3%;
+}
+
+.location-activities-group {
+    padding-bottom: 2%;
+}
+
+.location-price-group {
+    padding-bottom: 2%;
+}
+
+.location-rating-group {
+    padding-bottom: 2%;
+}
+
