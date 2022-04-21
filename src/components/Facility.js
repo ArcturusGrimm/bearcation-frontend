@@ -3,10 +3,29 @@ import { useLoadScript, Circle, GoogleMap, Marker} from "@react-google-maps/api"
 import { useNavigate } from "react-router-dom";
 
 import "@reach/combobox/styles.css";
-import Places from "./places";
+import Places from "./NewPlaces";
 import '../styles/facility.css'
+import axios from "axios";
 
+const handleSubmit = async(e, navigate, name, description) => {
+    e.preventDefault();
+    const locationDto = {
+        name: name,
+        description: description
+    };
+    let response;
+    await axios.post("http://localhost:80/location/createLocation", locationDto)
+        .then(res => {
+            console.log(res);
+            response = res.data;
+        })
 
+    if(response !== ""){
+        navigate('/home')
+    }else{
+        alert("Credentials do not match any account.")
+    }
+}
 
 
 function Facility(){
@@ -14,7 +33,7 @@ function Facility(){
     const [vacationLocation, setVacationLocation] = useState();
     const [places, setPlaces] = useState([]);
     const [loadAdvancedSearch, setLoadAdvancedSearch] = useState(false);
-    
+
     const [facilityName, setFacilityName] = useState('');
     const [facilityPrice, setFacilityPrice] = useState('');
     const [facilityActivities, setFacilityActivities] = useState([]);
@@ -42,12 +61,12 @@ function Facility(){
     const searchTopPlaces = async () => {
         //const response = await fetch(`${API_URL}&s=${title}`);
         //const data = await response.json();
-    
+
         //setPlaces(data); data.{}
     };
 
     if(!isLoaded) return <div>Loading...</div>
-    
+
     return(
         <div className="facility-body">
             <h1>Location</h1>
@@ -67,34 +86,33 @@ function Facility(){
                         onLoad={onLoad}
                     >
                         {vacationLocation && (
-                        <>
-                            <Marker 
-                                position={vacationLocation}
-                                icon="http://maps.google.com/mapfiles/kml/paddle/blu-circle.png"
-                            />
+                            <>
+                                <Marker
+                                    position={vacationLocation}
+                                    icon="http://maps.google.com/mapfiles/kml/paddle/blu-circle.png"
+                                />
 
-                            {/* <Circle center={vacationLocation} radius={85000} options={closeOptions} />
+                                {/* <Circle center={vacationLocation} radius={85000} options={closeOptions} />
                             <Circle center={vacationLocation} radius={160934} options={middleOptions} />
                             <Circle center={vacationLocation} radius={402336} options={farOptions} />
                             <Circle center={vacationLocation} radius={1207000} options={superFarOptions} /> */}
-                        </>
+                            </>
                         )}
                     </GoogleMap>
                 </div>
                 <div className="facility-address-group form-group">
                     <input name = "street-address" className="form-control street-address-name" placeholder="Street..." value={facilityStreetAddress} type="text" onChange={e => setFacilityStreetAddress(e.target.value)} required />
-                    
+
                     <div className="facility-inline-address">
                         <input name = "city" className="form-control city-name" placeholder="City..." value={facilityCity} type="text" onChange={e => setFacilityCity(e.target.value)} required />
                         <input name = "state" className="form-control state-name" placeholder="State..." value={facilityState} type="text" onChange={e => setFacilityState(e.target.value)} required />
                         <input name = "zip" className="form-control zip-number" placeholder="Zipcode..." value={facilityZip} type="text" onChange={e => setFacilityZip(e.target.value)} required />
                     </div>
                 </div>
-                <input type="submit" className="btn btn-dark btn-block add-facility-submit" value="Save Park" />
+                <input type="submit" className="btn btn-dark btn-block add-facility-submit" value="Save Park" onClick={e => handleSubmit(e, navigate, facilityName, facilityDescription)} />
             </div>
         </div>
     );
-} 
+}
 
 export default Facility;
-

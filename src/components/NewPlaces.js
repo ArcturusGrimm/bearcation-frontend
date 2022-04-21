@@ -11,15 +11,12 @@ import {
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 import "../styles/explore.css"
-import {Carousel} from "bootstrap";
-import {useRef} from "react";
-import {GoogleMap} from "@react-google-maps/api";
 
 // type PlacesProps = {
 //     setVacationLocation: (position: google.maps.LatLngLiteral) => void;
 // };
 
-export default function Places({setVacationLocation}) {
+export default function NewPlaces({setVacationLocation}) {
     const {ready, value, setValue, suggestions: {status, data}, clearSuggestions} = usePlacesAutocomplete();
 
     const handleSelect = async (val) => {
@@ -37,7 +34,7 @@ export default function Places({setVacationLocation}) {
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 disabled={!ready}
-                className="combobox-input"
+                classNames="combobox-input"
                 placeholder="Search for Location..."
             />
             <ComboboxPopover>

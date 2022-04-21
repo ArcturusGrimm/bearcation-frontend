@@ -1,0 +1,51 @@
+
+.customer-dashboard-body {
+    text-align: left;
+    justify-content: left;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+
+.customer-dashboard-recommended-parks{
+    height: 20%;
+    margin-top: 3%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2%;
+    grid-auto-rows: minmax(100px, auto);
+}
+
+.customer-dashboard-park-card {
+    border: 0.5px solid #000000;
+    border-radius: 25px;
+    padding: 20px;
+    margin-top: 1%;
+    display: flex;
+    align-items: center;
+}
+.customer-dashboard-explore-text {
+    margin-top: 3%;
+}
+
+.customer-dashboard-explore-text:hover,
+.customer-dashboard-settings-text:hover {
+    text-decoration: underline;
+}
+
+
+.customer-dashboard-parks {
+    padding-top: 5%;
+}
+
+
+.customer-dashboard-location-text{
+    display: inline;
+}
+.customer-dashboard-location-navigate{
+    margin-left: auto;
+    margin-right: 2%;
+    display: inline;
+}

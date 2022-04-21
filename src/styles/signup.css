@@ -14,8 +14,8 @@ a:hover {
 
 .signup-body {
     font-family: Shadows Into Light;
-    height: 75%;
-    width: 28%;
+    height: 80%;
+    width: 30%;
     justify-content: center;
     position: absolute;
     left: 50%;
@@ -29,7 +29,7 @@ a:hover {
 
 .create-tag {
     padding-top: 20px;
-    padding-bottom: 25px;
+    padding-bottom: 2%;
 }
 
 .signup-username-group {
@@ -72,10 +72,20 @@ a:hover {
   
 .forgot-password,
 .forgot-password a {
-    padding-top: 10px;
+    padding-top: 2%;
     margin: 0;
 }
 
+.signup-role-container{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5%;
+    align-items: flex-start;
+    text-align: left;
+}
+.signup-role-form {
+    width: 50%;
+}
 
 .submit {
     width: 40%;
