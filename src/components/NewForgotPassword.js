@@ -6,18 +6,18 @@ import '../styles/forgotPassword.css'
 import "bootstrap/dist/css/bootstrap.min.css"
 import HeaderBar from "./HeaderBar";
 
- const handleSubmit = async(e, navigate, username) => {
+const handleSubmit = async(e, navigate, username) => {
     e.preventDefault();
     const userDto = {
         username: username,
     };
-     let response;
+    let response;
     await axios.post("http://localhost:80/user/check", userDto)
-     .then(res => {
-         console.log(res);
-         response = res.data;
-         //response = res.data.username;
-     })
+        .then(res => {
+            console.log(res);
+            response = res.data;
+            //response = res.data.username;
+        })
 
     console.log("response " + response)
     if(response !== ""){
@@ -35,7 +35,6 @@ function NewForgotPassword(){
     const navigate = useNavigate();
     return (
         <div className="forgot-password-page">
-            <HeaderBar/>
             <div className="forgot-password-body">
                 <h2 className="forgot-password-tag">Forgot Password</h2>
                 <form className = "forgot-password-form" onSubmit={e => handleSubmit(e, navigate, username)} >

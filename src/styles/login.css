@@ -6,6 +6,10 @@ a:hover {
     color: rgb(255, 184, 28);
 }
 
+* {
+    font-family: Shadows Into Light;
+}
+
 .login-page {
     background-image: url('../assets/yosemiteMountain.jpg') ; 
     background-size: cover;
@@ -57,10 +61,21 @@ a:hover {
 }
 
 .proceedAsGuest {
-    padding-top: 25%;
+    padding-top: 10%;
     padding-left: 60%;
 }
 
 .submit {
     width: 40%;
+}
+
+.login-role-container{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5%;
+    align-items: flex-start;
+    text-align: left;
+}
+.login-role-form {
+    width: 50%;
 }
