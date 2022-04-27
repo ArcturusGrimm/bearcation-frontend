@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { useLoadScript, Circle, GoogleMap, Marker } from "@react-google-maps/api";
 import { useNavigate } from "react-router-dom";
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
@@ -11,9 +11,7 @@ import HeaderBar from "./HeaderBar";
 
 import "@reach/combobox/styles.css";
 import '../styles/explore.css'
-import NewPlaces from "./NewPlaces";
-import axios from "axios";
-import {map} from "react-bootstrap/ElementChildren";
+import Places from "./places";
 
 const grandCanyon = {
     'name': 'Grand Canyon',
@@ -48,50 +46,12 @@ function Explore() {
     const [loadAdvancedSearch, setLoadAdvancedSearch] = useState(false);
     const [activities, setActivities] = useState([]);
     const [price, setPrice] = useState(50);
-    console.log(vacationLocation);
+
     const mapRef = useRef();
     const center = useMemo(
         () => ({ lat: 31.5489, lng: -97.1131 }),
         []
     );
-
-    const [apiActivities, setApiActivities] = useState(null);
-    useEffect(async () =>{
-        let response;
-        await axios.get("http://localhost:80/location/activities")
-            .then(res => {
-                console.log(res);
-                response = res.data;
-            })
-        setApiActivities(response);
-    }, []);
-
-    const [locations, setLocations] = useState(null);
-    useEffect(async () =>{
-        let response;
-        let latitude = vacationLocation.lat;
-        let longitude = vacationLocation.lng;
-        let price = 0;
-
-        const recommendDto = {
-            latitude: latitude,
-            longitude: longitude,
-            price: price,
-            activities: ["Biking"]
-        };
-        await axios.post("http://localhost:80/location/search", recommendDto).then(res => {
-            response = res.data;
-        })
-        console.log("r", response);
-
-        // await axios.get("http://localhost:80/location/locations")
-        //     .then(res => {
-        //
-        //         response = res.data;
-        //     })
-        setLocations(response);
-    }, [vacationLocation.lat]);
-
     const navigate = useNavigate();
 
     const onLoad = useCallback((map) => (mapRef.current = map), [])
@@ -111,9 +71,9 @@ function Explore() {
         setPrice(newPrice);
     }
 
-    // const parkActivites = [
-    //     "Camping", "Hiking"
-    // ];
+    const parkActivites = [
+        "Camping", "Hiking"
+    ];
 
     if (!isLoaded) return <div>Loading...</div>
     return (
@@ -123,7 +83,7 @@ function Explore() {
                 <h1>Explore Parks</h1>
                 <div className="search-form">
                     <div className="search-group form-group">
-                        <NewPlaces className="search-text" setVacationLocation={(position) => {
+                        <Places className="search-text" setVacationLocation={(position) => {
                             setVacationLocation(position);
                             mapRef.current?.panTo(position);
                         }} />
@@ -150,7 +110,7 @@ function Explore() {
                                     onSelect={(event) => {
                                         setActivities([...event]);
                                     }}
-                                    options={apiActivities}
+                                    options={parkActivites}
                                 />
                             </div>
                             <div className="explore-price-group">
@@ -198,10 +158,6 @@ function Explore() {
                             {/* {places.map((place) => (
                             <PlaceCard place={place} />
                         ))} */}
-
-                            {locations?.map(((place) => (
-                                PlaceCard(place.name, place.description, grandCanyon.distance, navigate))))}
-
                             {PlaceCard(grandCanyon.name, grandCanyon.description, grandCanyon.distance, navigate)}
                         </div>
                     </div>
@@ -212,3 +168,4 @@ function Explore() {
 }
 
 export default Explore;
+
