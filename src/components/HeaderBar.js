@@ -18,6 +18,7 @@ import { createTheme } from '@mui/material/styles';
 
 
 import '../styles/headerBar.css'
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme({
   status: {
@@ -38,6 +39,8 @@ const theme = createTheme({
 function HeaderBar() {
   const [auth, setAuth] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const navigate = useNavigate();
 
   const open = Boolean(anchorEl);
 
@@ -113,7 +116,10 @@ function HeaderBar() {
             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
           >
-            <MenuItem>
+            <MenuItem
+              onClick={() => navigate('/customer-dashboard', { state:{fName: "Francis"}})
+              }
+            >
               <Avatar /> Profile
             </MenuItem>
             <Divider />
@@ -123,7 +129,7 @@ function HeaderBar() {
               </ListItemIcon>
               Settings
             </MenuItem>
-            <MenuItem>
+            <MenuItem onClick={() => (navigate('/'))}>
               <ListItemIcon>
                 <Logout fontSize="large" />
               </ListItemIcon>

@@ -1,0 +1,68 @@
+a {
+    color: rgb(0, 0, 0);
+}
+
+a:hover {
+    color: rgb(255, 184, 28);
+}
+
+.settings-page {
+    background-image: url('../assets/arches-image.jpg') ;
+    background-size: cover;
+    height: 100vh;
+}
+
+.settings-body {
+    font-family: Shadows Into Light;
+    height: 80%;
+    width: 30%;
+    justify-content: left;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 0.5px solid #000000;
+    padding: 10px;
+    background-color: #ffffff;
+    opacity: 90%;
+}
+
+.settings-create-tag {
+    padding-top: 20px;
+    padding-bottom: 2%;
+}
+
+.settings-username-group {
+    text-align: left;
+    padding-top: 20px;
+    padding-bottom: 25px;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.settings-first-name-text, .settings-last-name-text {
+    /*width: 45%;*/
+}
+.settings-first-name-text{
+    margin-bottom: 25px;
+}
+
+.settings-email-group {
+    padding-bottom: 25px;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.settings-password-group {
+    padding-bottom: 25px;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+
+.settings-submit, .settings-cancel {
+    width: 40%;
+}
+.settings-cancel {
+    margin-left: 14%;
+}

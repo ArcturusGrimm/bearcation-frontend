@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 import '../styles/locationPage.css'
 
@@ -15,11 +15,12 @@ const AlaskaPark = {
 function LocationPage () {
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     return(
         <div className="location-page-body">
             {/* Title */}
-            <h3 className="location-name-text">{AlaskaPark.name}</h3>
+            <h3 className="location-name-text">{location.state.name}</h3>
 
             {/* Description */}
             <h6 className="location-description-text">
@@ -60,7 +61,7 @@ function LocationPage () {
                     type="submit" 
                     className="btn btn-dark btn-block location-add-review-submit" 
                     value="Add Review" 
-                    onClick={e=>(navigate('/review'))}                    
+                    onClick={e=>(navigate('/review', {state:{name: location.state.name}}))}
                 />
             </div>
         </div>
