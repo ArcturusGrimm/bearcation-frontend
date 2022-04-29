@@ -44,7 +44,7 @@ class ForgotPassword extends React.Component {
         //this.props.navigation.navigate('/home')
 
 
-        axios.get("http://localhost:80/user/users", userDto).then((res) => {
+        axios.get("https://bearcation-backend.herokuapp.com/user/users", userDto).then((res) => {
             console.log("Password changed successfully!");
             console.log(res);
             this.setState({

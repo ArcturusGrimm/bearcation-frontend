@@ -36,7 +36,7 @@ function CustomerDashboard() {
     const [locations, setLocations] = useState();
     useEffect(async () =>{
         let response;
-        await axios.get("http://localhost:80/location/search")
+        await axios.get("https://bearcation-backend.herokuapp.com/location/search")
             .then(res => {
                 response = res.data;
                 console.log(response);

@@ -12,7 +12,7 @@ const handleSubmit = async(e, navigate, username) => {
         username: username,
     };
     let response;
-    await axios.post("http://localhost:80/user/check", userDto)
+    await axios.post("https://bearcation-backend.herokuapp.com/user/check", userDto)
         .then(res => {
             console.log(res);
             response = res.data;
