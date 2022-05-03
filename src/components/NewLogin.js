@@ -26,13 +26,14 @@ const handleSubmit = async(e, setAuth, navigate, email, password, role) => {
             response = res.data;
         })
 
-    let firstName = response.firstName;
+    let firstName = response.firstName
+    let id = response.id
     if(response !== "" && role === "Customer"){
         // nameLast = response.lastName;
-        setAuth({ firstName, email, password, role });
+        setAuth({ id, firstName, email, password, role });
         navigate('/customer-dashboard')
     } else if(response !== "" && role === "Owner"){
-        setAuth({ firstName, email, password, role });
+        setAuth({ id, firstName, email, password, role });
         navigate('/owner-dashboard')
     } else {
         alert("Credentials do not match any account.")
