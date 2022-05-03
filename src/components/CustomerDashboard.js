@@ -26,6 +26,15 @@ const parkExampleArray = [
 ]
 const parkExample = { name: "Alaska National Park" }
 
+function ReviewCard({review}){
+    return(
+        <div className="review-card">
+            <h5 className="review-card-rating">Rating: {review.rating} </h5>
+            <h5 className="review-card-description">Description: {review.description} </h5>
+        </div>
+    );
+}
+
 
 function CustomerDashboard() {
     const { auth } = useAuth();
@@ -36,6 +45,7 @@ function CustomerDashboard() {
     const location = useLocation();
 
     const [locations, setLocations] = useState();
+    const [reviews, setReviews] = useState();
     useEffect(async () =>{
         let response;
         const recommendDto = {
@@ -51,6 +61,20 @@ function CustomerDashboard() {
             })
             setLocations(response);
     }, []);
+
+
+    useEffect(async () =>{
+        let response;
+        await axios.get("http://localhost:80/review/search/user/" + auth.id)
+            .then(res => {
+                response = res.data;
+                console.log(response);
+            })
+        setReviews(response);
+    }, []);
+
+
+
 
 
     return (
@@ -92,6 +116,22 @@ function CustomerDashboard() {
                             </div>
                         )
                     }
+                    <h2>View Reviews:</h2>
+                    {
+
+                        reviews
+                            ? (
+                                <div className="customer-dashboard-recommended-parks">
+                                    {reviews.map((review) => <ReviewCard review={review}/>)}
+                                </div>
+                            ) : (
+                                <div>
+                                    Sorry, we do not have any recommended parks.
+                                </div>
+                            )
+                    }
+
+
                 </div>
             </div>
         </div>

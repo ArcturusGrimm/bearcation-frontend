@@ -2,15 +2,59 @@ import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 
 import "../styles/editSettings.css"
+import axios from "axios";
+import useAuth from "../hooks/useAuth";
+
+const handleSave = async(e, navigate, id, firstName, lastName, email) => {
+    e.preventDefault();
+    const userDto = {
+        id: id,
+        firstName: firstName,
+        lastName: lastName,
+        email: email
+    };
+    let response;
+    await axios.patch("http://localhost:80/account/editAccount", userDto)
+        .then(res => {
+            console.log(res);
+            response = res.data;
+        })
+    if (response !== "") {
+        navigate('/');
+
+    } else {
+        alert("Credentials do not match any account.")
+    }
+
+}
+
 
 function EditSettings(){
 
-    const [firstname, setFirstname] = useState();
-    const [lastname, setLastname] = useState();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const { auth } = useAuth();
+
+    const [firstname, setFirstname] = useState('');
+    const [lastname, setLastname] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const [credentials, setCredentials] = useState();
 
     const navigate = useNavigate();
+
+    useEffect(async () =>{
+        let response;
+        await axios.get("http://localhost:80/user/" + auth.id)
+            .then(res => {
+                console.log(res);
+                response = res.data;
+            })
+        console.log(response)
+        setCredentials(response);
+        setFirstname(response.firstName)
+        setLastname(response.lastName)
+        setEmail(response.email)
+    }, []);
 
     return(
         <div className="settings-page">
@@ -27,7 +71,7 @@ function EditSettings(){
                     {/* <div className="settings-password-group form-group">
                         <input name = "password" className="form-control" placeholder="Password" value={password} type="password" onChange={e => setPassword(e.target.value)} required />
                     </div> */}
-                    <input type="submit" className="btn btn-dark btn-block settings-submit" value="Save" />
+                    <input type="submit" className="btn btn-dark btn-block settings-submit" value="Save"  onClick={e=> handleSave(e, navigate, auth.id, firstname, lastname, email)}/>
                     <input type="button" className="btn btn-dark btn-block settings-cancel" value="Cancel" onClick={() => {navigate(-1)}} />
                 </form>
             </div>

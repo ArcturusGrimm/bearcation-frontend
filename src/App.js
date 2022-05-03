@@ -21,6 +21,7 @@ import CustomerDetails from "./components/CustomerDetails";
 import RequireAuth from './components/RequireAuth';
 import PageNotFound from './components/PageNotFound';
 import Directory from './components/Directory';
+import EditLocation from "./components/EditLocation";
 
 function App() {
     return (
@@ -38,6 +39,7 @@ function App() {
                     <Route element={<RequireAuth allowedRoles={["Owner"]}/>}>
                         <Route path='/owner-dashboard' element={<OwnerDashboard/>}/>
                         <Route path='/facility' element={<Facility/>}/>
+                        <Route path='/editLocation' element={<EditLocation/>}/>
                     </Route>
 
                     <Route element={<RequireAuth allowedRoles={["Customer"]}/>}>

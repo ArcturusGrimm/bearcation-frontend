@@ -11,7 +11,7 @@ export default function DashboardParkCard({ park }){
             <div className="customer-dashboard-location-navigate">
                 <IconButton
                     className="customer-dashboard-location-navigate-button"
-                    onClick={() => {(navigate('/location', {state:{name: park.name}}))}}
+                    onClick={() => {(navigate('/location', {state:{id: park.id}}))}}
                 >
                     <TravelExploreIcon fontSize="small" />
                 </IconButton>
