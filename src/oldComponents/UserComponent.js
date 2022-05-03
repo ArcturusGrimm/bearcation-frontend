@@ -44,7 +44,7 @@ class UserComponent extends React.Component {
             username: this.state.username,
         };
 
-        axios.post("https://bearcation-backend.herokuapp.com/user/users", userDto)
+        axios.post("http://localhost:80/user/users", userDto)
             .then(res => {
                 console.log('Account added successfully!');
                 console.log(res);

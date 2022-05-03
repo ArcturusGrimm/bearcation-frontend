@@ -14,7 +14,7 @@ const handleSubmit = async(e, navigate, name, description) => {
         description: description
     };
     let response;
-    await axios.post("https://bearcation-backend.herokuapp.com/location/createLocation", locationDto)
+    await axios.post("http://localhost:80/location/createLocation", locationDto)
         .then(res => {
             console.log(res);
             response = res.data;

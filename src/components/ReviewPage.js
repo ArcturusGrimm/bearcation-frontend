@@ -19,7 +19,7 @@ const handlePostSubmit = async(e, navigate, rating, review, parkName) => {
         description: review
     };
     let response;
-    // await axios.post("https://bearcation-backend.herokuapp.com/review/createReview", reviewDto)
+    // await axios.post("http://localhost:80/review/createReview", reviewDto)
     //     .then(res => {
     //         console.log(res);
     //         response = res.data;

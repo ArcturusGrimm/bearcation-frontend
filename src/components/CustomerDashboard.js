@@ -3,6 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
+import useAuth from '../hooks/useAuth';
 import { useNavigate, Link } from "react-router-dom";
 import {useLocation} from 'react-router-dom';
 
@@ -27,6 +28,7 @@ const parkExample = { name: "Alaska National Park" }
 
 
 function CustomerDashboard() {
+    const { auth } = useAuth();
 
     const [vacationLocation, setVacationLocation] = useState();
     const navigate = useNavigate();
@@ -36,7 +38,7 @@ function CustomerDashboard() {
     const [locations, setLocations] = useState();
     useEffect(async () =>{
         let response;
-        await axios.get("https://bearcation-backend.herokuapp.com/location/search")
+        await axios.get("http://localhost:80/location/search")
             .then(res => {
                 response = res.data;
                 console.log(response);
@@ -51,9 +53,9 @@ function CustomerDashboard() {
             <div className="customer-dashboard-body">
                 <div className="customer-dashboard-details">
                     <h1 className="customer-dashboard-welcome-text">
-                        <b>Hello, {location.state.fName}!</b>
+                        <b>Hello, {auth.firstName}!</b>
                     </h1>
-                    <Link to="/explore" state={{name: location.state.fName}}>
+                    <Link to="/explore">
                         <h2 className="customer-dashboard-explore-text">
                             Explore National Parks and Landmarks!
                         </h2>
