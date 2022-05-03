@@ -38,7 +38,13 @@ function CustomerDashboard() {
     const [locations, setLocations] = useState();
     useEffect(async () =>{
         let response;
-        await axios.get("http://localhost:80/location/search")
+        const recommendDto = {
+            latitude: 35.55,
+            longitude: 97.15,
+            price: 0.0,
+            activities: []
+        };
+        await axios.post("http://localhost:80/location/search", recommendDto)
             .then(res => {
                 response = res.data;
                 console.log(response);
@@ -75,10 +81,10 @@ function CustomerDashboard() {
                     <h2>View Recommended Parks:</h2>
                     {
 
-                        parkExampleArray.length > 0 
+                        locations
                         ? (
                             <div className="customer-dashboard-recommended-parks">
-                                {parkExampleArray.map((park) => <DashboardParkCard park={park}/>)}
+                                {locations.map((park) => <DashboardParkCard park={park}/>)}
                             </div>
                         ) : (
                             <div>

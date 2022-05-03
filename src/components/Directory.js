@@ -3,13 +3,14 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from 'react-bootstrap/Button';
 
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {useNavigate, Link, useLocation} from "react-router-dom";
 import useAuth from '../hooks/useAuth';
 
 import '../styles/directory.css'
 import HeaderBar from "./HeaderBar";
 import { ModalBody } from 'react-bootstrap';
+import axios from "axios";
 
 
 const Person = {
@@ -35,6 +36,17 @@ function Directory() {
     const navigate = useNavigate();
     const location = useLocation();
 
+    useEffect(async () =>{
+        let response;
+        await axios.get("http://localhost:80/user/users")
+            .then(res => {
+                console.log(res);
+                response = res.data;
+            })
+        console.log(response)
+        setPeople(response);
+    }, []);
+
     let array = [{firstName: 'Francis', lastName: "Boyle", email: 'francis_boyle1@baylor.edu'}, 
                 {firstName: 'Patrick', lastName: "Boyle", email: 'patrick_boyle1@baylor.edu'}]
 
@@ -57,7 +69,7 @@ function Directory() {
                 <div className="directory-people">
                     <h1>Users:</h1>
                     {
-                        people.length > 0 
+                        people
                         ? (
                             <div className="directory-person">
                                 { console.log(people) }

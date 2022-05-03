@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import HeaderBar from "./HeaderBar";
 import '../styles/locationPage.css'
+import axios from "axios";
 
 const AlaskaPark = {
     'name': 'Alaska National Park',
@@ -30,11 +31,36 @@ function LocationPage() {
     let array = [{rating: 5, description: "This place is the best place ever."}, 
                 {rating: 0, description: "This place sucks. BOOOOO!"}]
 
-    const [reviews, setReviews] = useState([]);
 
-    if(reviews.length == 0){
-        setReviews(array);
-    }
+
+    const [reviews, setReviews] = useState([]);
+    const [locAtr, setLocAtr] = useState([]);
+
+    useEffect(async () =>{
+        let response;
+        await axios.get("http://localhost:80/review/search/location/" + location.state.id)
+            .then(res => {
+                console.log(res);
+                response = res.data;
+            })
+        console.log(response)
+        setReviews(response);
+
+        let response2;
+        await axios.get("http://localhost:80/location/search/" + location.state.id)
+            .then(res => {
+                console.log(res);
+                response2 = res.data;
+            })
+        console.log(response2)
+        setLocAtr(response2);
+
+
+    }, []);
+
+    // if(reviews.length == 0){
+    //     setReviews(array);
+    // }
 
     return (
 
@@ -42,15 +68,11 @@ function LocationPage() {
             <HeaderBar />
             <div className="location-page-body">
                 {/* Title */}
-                <h1 className="location-name-text"><b>{location.state.name}</b></h1>
+                <h1 className="location-name-text"><b>{locAtr.name}</b></h1>
 
                 {/* Description */}
                 <h6 className="location-description-text">
-                    With millions of acres of diverse and vital wilderness and a human history reaching back 14,000 years,
-                    the enormity of Alaska’s story is almost incomprehensible. Within this vast landscape,
-                    Alaska’s many national parks, preserves, monuments and national historical parks are home to a host of
-                    natural, cultural, and historic wonders. Alaska, the Land of the Midnight Sun, has the nation's largest
-                    glacial system, world-class wildlife viewing, North America's tallest peak, and so much more.
+                    {locAtr.description}
                 </h6>
 
                 {/* Activites */}
@@ -59,21 +81,21 @@ function LocationPage() {
                         Activites:
                     </h4>
                     <h6 className="location-activities-body-text">
-                        {AlaskaPark.activities}
+                        {locAtr.activities}
                     </h6>
                 </div>
 
                 {/* Price */}
                 <div className="location-price-group">
                     <h4 className="location-price-text">
-                        Price: ${AlaskaPark.price}
+                        Price: ${locAtr.price}
                     </h4>
                 </div>
 
                 {/* Rating */}
                 <div className="location-rating-group">
                     <h4 className="location-rating-text">
-                        Rating: {AlaskaPark.rating}/5
+                        Rating: {locAtr.rating ? locAtr.rating : 2.5}/5
                     </h4>
                 </div>
 
@@ -83,7 +105,7 @@ function LocationPage() {
                         type="submit"
                         className="btn btn-dark btn-block location-add-review-submit"
                         value="Add Review"
-                        onClick={e => (navigate('/review', { state: { name: location.state.name } }))}
+                        onClick={e => (navigate('/review', { state: { id: location.state.id } }))}
                     />
                 </div>
 
@@ -91,7 +113,7 @@ function LocationPage() {
                 <div className="location-display-review-group">
                 <h1>Reviews:</h1>
                     {
-                        reviews.length > 0 
+                        reviews
                         ? (
                             <div className="location-review-call-card">
                                 {reviews.map((review) => <ReviewCard review={review}/>)}
