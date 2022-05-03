@@ -33,6 +33,12 @@ const handleDeleteLocation = async(e, navigate, id) => {
     navigate('/owner-dashboard')
 }
 
+const handleEditLocation = async(e, navigate, id) => {
+    e.preventDefault();
+    navigate('/editLocation', {state:{id: id}})
+}
+
+
 function DashboardParkCard(park, navigate){
     return(
         <div className="owner-dashboard-park-card">
@@ -41,7 +47,8 @@ function DashboardParkCard(park, navigate){
                 <IconButton
                     className="owner-dashboard-edit-button"
                 >
-                    <EditIcon fontSize="small" />
+                    <EditIcon fontSize="small" onClick={e => handleEditLocation(e, navigate, park.id)}/>
+
                 </IconButton>
                 <IconButton
                     className="owner-dashboard-delete-button"

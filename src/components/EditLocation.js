@@ -1,6 +1,6 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import { useLoadScript, Circle, GoogleMap, Marker } from "@react-google-maps/api";
-import { useNavigate } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 import usePlacesAutocomplete, {
     getGeocode,
@@ -14,12 +14,12 @@ import '../styles/facility.css'
 import useAuth from '../hooks/useAuth';
 import axios from "axios";
 
-const handleSubmit = async (e, navigate, name, description, price, id, city, state, locID) => {
+const handleSubmit = async (e, navigate, name, description, price, id, city, state, locId) => {
     e.preventDefault();
     console.log(id);
 
     const locationDto = {
-        ownerId: id,
+        id: locId,
         name: name,
         description: description,
         price: price,
@@ -27,7 +27,7 @@ const handleSubmit = async (e, navigate, name, description, price, id, city, sta
         longitude: state
     };
     let response;
-    await axios.post("http://localhost:80/location/createLocation", locationDto)
+    await axios.patch("http://localhost:80/location/editLocation", locationDto)
         .then(res => {
             console.log(res);
             response = res.data;
@@ -41,7 +41,9 @@ const handleSubmit = async (e, navigate, name, description, price, id, city, sta
 }
 
 
-function Facility() {
+function EditLocation() {
+
+    const location = useLocation();
 
     const [vacationLocation, setVacationLocation] = useState();
     const [places, setPlaces] = useState([]);
@@ -66,7 +68,20 @@ function Facility() {
     );
     const navigate = useNavigate();
 
-
+    useEffect(async () =>{
+        let response;
+        await axios.get("http://localhost:80/location/search/" + location.state.id)
+            .then(res => {
+                console.log(res);
+                response = res.data;
+            })
+        console.log(response)
+        setFacilityName(response.name)
+        setFacilityPrice(response.price)
+        setFacilityDescription(response.description)
+        setFacilityCity(response.latitude)
+        setFacilityState(response.longitude)
+    }, []);
 
 
     const onLoad = useCallback((map) => (mapRef.current = map), [])
@@ -99,26 +114,26 @@ function Facility() {
                         <textarea name="description" className="form-control facility-description" placeholder="Description..." value={facilityDescription} rows="6" onChange={e => setFacilityDescription(e.target.value)} required />
                     </div>
                     {/*<div className="map-group">*/}
-                        {/*<GoogleMap*/}
-                        {/*    zoom={10}*/}
-                        {/*    center={center}*/}
-                        {/*    mapContainerClassName="facility-map-container"*/}
-                        {/*    onLoad={onLoad}*/}
-                        {/*>*/}
-                        {/*    {vacationLocation && (*/}
-                        {/*        <>*/}
-                        {/*            <Marker*/}
-                        {/*                position={vacationLocation}*/}
-                        {/*                icon="http://maps.google.com/mapfiles/kml/paddle/blu-circle.png"*/}
-                        {/*            />*/}
+                    {/*<GoogleMap*/}
+                    {/*    zoom={10}*/}
+                    {/*    center={center}*/}
+                    {/*    mapContainerClassName="facility-map-container"*/}
+                    {/*    onLoad={onLoad}*/}
+                    {/*>*/}
+                    {/*    {vacationLocation && (*/}
+                    {/*        <>*/}
+                    {/*            <Marker*/}
+                    {/*                position={vacationLocation}*/}
+                    {/*                icon="http://maps.google.com/mapfiles/kml/paddle/blu-circle.png"*/}
+                    {/*            />*/}
 
-                        {/*            /!* <Circle center={vacationLocation} radius={85000} options={closeOptions} />*/}
-                        {/*    <Circle center={vacationLocation} radius={160934} options={middleOptions} />*/}
-                        {/*    <Circle center={vacationLocation} radius={402336} options={farOptions} />*/}
-                        {/*    <Circle center={vacationLocation} radius={1207000} options={superFarOptions} /> *!/*/}
-                        {/*        </>*/}
-                        {/*    )}*/}
-                        {/*</GoogleMap>*/}
+                    {/*            /!* <Circle center={vacationLocation} radius={85000} options={closeOptions} />*/}
+                    {/*    <Circle center={vacationLocation} radius={160934} options={middleOptions} />*/}
+                    {/*    <Circle center={vacationLocation} radius={402336} options={farOptions} />*/}
+                    {/*    <Circle center={vacationLocation} radius={1207000} options={superFarOptions} /> *!/*/}
+                    {/*        </>*/}
+                    {/*    )}*/}
+                    {/*</GoogleMap>*/}
                     {/*</div>*/}
                     <div className="facility-address-group form-group">
                         {/*<input name="street-address" className="form-control street-address-name" placeholder="Street..." value={facilityStreetAddress} type="text" onChange={e => setFacilityStreetAddress(e.target.value)} required />*/}
@@ -131,10 +146,10 @@ function Facility() {
                             {/*<input name="zip" className="form-control zip-number" placeholder="Zipcode..." value={facilityZip} type="text" onChange={e => setFacilityZip(e.target.value)} required />*/}
                         </div>
                     </div>
-                    <input type="submit" className="btn btn-dark btn-block add-facility-submit" value="Save Park" onClick={e => handleSubmit(e, navigate, facilityName, facilityDescription, facilityPrice, auth.id, facilityCity, facilityState)} />
+                    <input type="submit" className="btn btn-dark btn-block add-facility-submit" value="Save Park" onClick={e => handleSubmit(e, navigate, facilityName, facilityDescription, facilityPrice, auth.id, facilityCity, facilityState, location.state.id)} />
                 </div>
             </div>
         </div>
     );
 }
-export default Facility;
+export default EditLocation;

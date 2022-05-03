@@ -152,7 +152,7 @@ function Explore() {
                         {/*    </Button>*/}
                         {/*</div>*/}
                     </div>
-                    {true && (
+                    {(
                         <div className="advanced-search-group">
                             {/*<h3>Advanced Criteria</h3>*/}
                             <div className="advanced-search-activities-group">
@@ -194,6 +194,10 @@ function Explore() {
                         >
                             {vacationLocation && (
                                 <>
+                                    {locations?.map((place) => (
+                                        <Marker position={{lat: place.latitude, lng: place.longitude}}/>))
+                                    }
+
                                     <Marker
                                         position={vacationLocation}
                                         icon="http://maps.google.com/mapfiles/kml/paddle/blu-circle.png"
@@ -202,7 +206,7 @@ function Explore() {
                                     <Circle center={vacationLocation} radius={85000} options={closeOptions} />
                                     <Circle center={vacationLocation} radius={160934} options={middleOptions} />
                                     <Circle center={vacationLocation} radius={402336} options={farOptions} />
-                                    <Circle center={vacationLocation} radius={1207000} options={superFarOptions} /> */}
+                                    <Circle center={vacationLocation} radius={1207000} options={superFarOptions} />
                                 </>
                             )}
                         </GoogleMap>
