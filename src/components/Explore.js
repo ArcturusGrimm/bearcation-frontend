@@ -24,16 +24,16 @@ const grandCanyon = {
     'distance': 53.1
 };
 
-function PlaceCard(name, description, distance, navigate) {
+function PlaceCard(park, navigate) {
     return (
         <div className="location-card">
             <div className="location-card-detail">
-                <h3 className="location-card-detail-data">{name}</h3>
+                <h3 className="location-card-detail-data">{park.name}</h3>
             </div>
             <div className="location-card-navigate">
                 <IconButton
                     className="location-card-navigate-button"
-                    onClick={e=>{(navigate('/location', {state:{name: name}}))}}
+                    onClick={e=>{(navigate('/location', {state:{id: park.id}}))}}
                 >
                     <KeyboardArrowRightIcon fontSize="large" />
                 </IconButton>
@@ -100,7 +100,7 @@ function Explore() {
         //     })
         setLocations(response);
         //setLocations(['5', '1']); (unmounted object)
-    }, [vacationLocation], [activities], [price]);
+    }, [vacationLocation]);
 
     const navigate = useNavigate();
 
@@ -131,11 +131,11 @@ function Explore() {
             <HeaderBar />
             <div className="explore-body">
                 {(auth?.firstName) ?
-                (
-                    <h1>Explore Parks, {auth.firstName}!</h1>
-                ) : (
-                    <h1>Explore Parks!</h1>
-                )}
+                    (
+                        <h1>Explore Parks, {auth.firstName}!</h1>
+                    ) : (
+                        <h1>Explore Parks!</h1>
+                    )}
                 <div className="search-form">
                     <div className="search-group form-group">
                         <NewPlaces className="search-text" setVacationLocation={(position) => {
@@ -214,7 +214,7 @@ function Explore() {
                             <PlaceCard place={place} />
                         ))} */}
                             {locations?.map(((place) => (
-                                PlaceCard(place.name, place.description, "--", navigate))))}
+                                PlaceCard(place, navigate))))}
                         </div>
                     </div>
                 </div>

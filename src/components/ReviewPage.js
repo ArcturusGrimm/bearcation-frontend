@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import '../styles/reviewPage.css';
 import { useLocation } from 'react-router-dom';
 import HeaderBar from "./HeaderBar";
+import useAuth from '../hooks/useAuth';
 import axios from "axios";
+
 
 const AlaskaPark = {
     'name': 'Alaska National Park',
@@ -12,21 +14,22 @@ const AlaskaPark = {
     'price': 4.99,
     'rating': 4.8
 }
-const handlePostSubmit = async (e, navigate, rating, review, parkName) => {
+const handlePostSubmit = async (e, navigate, auth, rating, review, id) => {
     e.preventDefault();
     const reviewDto = {
-        locationName: parkName,
+        locationId: id,
+        ownerId: auth.id,
         rating: rating,
         description: review
     };
     let response;
-    // await axios.post("http://localhost:80/review/createReview", reviewDto)
-    //     .then(res => {
-    //         console.log(res);
-    //         response = res.data;
-    //     })
+    await axios.post("http://localhost:80/review/createReview", reviewDto)
+        .then(res => {
+            console.log(res);
+            response = res.data;
+        })
     if (response !== "") {
-        navigate('/customer-dashboard');
+        navigate(-1);
 
     } else {
         alert("Credentials do not match any account.")
@@ -40,6 +43,8 @@ function ReviewPage() {
 
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState('');
+
+    const { auth } = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -79,7 +84,7 @@ function ReviewPage() {
                     <input type="submit"
                         className="btn btn-dark btn-block review-post-review-submit"
                         value="Post"
-                        onClick={e => handlePostSubmit(e, navigate, rating, review, location.state.name)}
+                        onClick={e => handlePostSubmit(e, navigate, auth, rating, review, location.state.id)}
                     />
                     <input type="submit"
                         className="btn btn-dark btn-block review-cancel-review-submit"
