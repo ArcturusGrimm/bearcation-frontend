@@ -31,15 +31,14 @@
 }
 
 .customer-dashboard-explore-text:hover,
-.customer-dashboard-settings-text:hover {
+.customer-dashboard-settings-text:hover,
+.customer-dashboard-directory-text:hover {
     text-decoration: underline;
 }
-
 
 .customer-dashboard-parks {
     padding-top: 5%;
 }
-
 
 .customer-dashboard-location-text{
     display: inline;

@@ -20,6 +20,7 @@ import EditSettings from './components/EditSettings'
 import CustomerDetails from "./components/CustomerDetails";
 import RequireAuth from './components/RequireAuth';
 import PageNotFound from './components/PageNotFound';
+import Directory from './components/Directory';
 
 function App() {
     return (
@@ -41,6 +42,7 @@ function App() {
 
                     <Route element={<RequireAuth allowedRoles={["Customer"]}/>}>
                         <Route path='/customer-dashboard' element={<CustomerDashboard/>}/>
+                        <Route path='/directory' element={<Directory/>}/>
                         <Route path='/review' element={<ReviewPage/>}/>
                     </Route>
 

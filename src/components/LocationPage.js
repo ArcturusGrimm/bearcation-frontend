@@ -12,11 +12,29 @@ const AlaskaPark = {
     'rating': 4.8
 }
 
+function ReviewCard({review}){
+    return(
+        <div className="review-card">
+            <h5 className="review-card-rating">Rating: {review.rating} </h5>
+            <h5 className="review-card-description">Description: {review.description} </h5>
+        </div>
+    );
+}
+
 
 function LocationPage() {
 
     const navigate = useNavigate();
     const location = useLocation();
+
+    let array = [{rating: 5, description: "This place is the best place ever."}, 
+                {rating: 0, description: "This place sucks. BOOOOO!"}]
+
+    const [reviews, setReviews] = useState([]);
+
+    if(reviews.length == 0){
+        setReviews(array);
+    }
 
     return (
 
@@ -24,7 +42,7 @@ function LocationPage() {
             <HeaderBar />
             <div className="location-page-body">
                 {/* Title */}
-                <h3 className="location-name-text">{location.state.name}</h3>
+                <h1 className="location-name-text"><b>{location.state.name}</b></h1>
 
                 {/* Description */}
                 <h6 className="location-description-text">
@@ -67,6 +85,23 @@ function LocationPage() {
                         value="Add Review"
                         onClick={e => (navigate('/review', { state: { name: location.state.name } }))}
                     />
+                </div>
+
+                {/* Display Reviews */}
+                <div className="location-display-review-group">
+                <h1>Reviews:</h1>
+                    {
+                        reviews.length > 0 
+                        ? (
+                            <div className="location-review-call-card">
+                                {reviews.map((review) => <ReviewCard review={review}/>)}
+                            </div>
+                        ) : (
+                            <div>
+                                Click the button above to be the first one to review!
+                            </div>
+                        )
+                    }
                 </div>
             </div>
         </div>

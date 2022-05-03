@@ -43,8 +43,8 @@ const handleSubmit = async(e, setAuth, navigate, email, password, role) => {
 function NewLogin() {
     const { setAuth } = useAuth();
 
-    const [username, setUsername] = useState();
-    const [password, setPassword] = useState();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [role, setRole] = useState('');
 
     const handleChange = (event) => {

@@ -65,6 +65,11 @@ function CustomerDashboard() {
                             Edit Settings
                         </h2>
                     </Link>
+                    <Link to="/directory">
+                        <h2 className="customer-dashboard-directory-text">
+                            Directory
+                        </h2>
+                    </Link>
                 </div>
                 <div className="customer-dashboard-parks">
                     <h2>View Recommended Parks:</h2>
