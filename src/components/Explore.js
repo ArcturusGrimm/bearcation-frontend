@@ -86,21 +86,21 @@ function Explore() {
             latitude: latitude,
             longitude: longitude,
             price: price,
-            activities: ["Biking"]
+            activities: activities
         };
-        // await axios.post("http://localhost:80/location/search", recommendDto).then(res => {
-        //     response = res.data;
-        // })
-        // console.log("r", response);
+        await axios.post("http://localhost:80/location/search2", recommendDto).then(res => {
+            response = res.data;
+        })
+        console.log("r", response);
 
         // await axios.get("http://localhost:80/location/locations")
         //     .then(res => {
         //
         //         response = res.data;
         //     })
-        // setLocations(response);
-        // setLocations(['5', '1']); (unmounted object)
-    }, [vacationLocation]);
+        setLocations(response);
+        //setLocations(['5', '1']); (unmounted object)
+    }, [vacationLocation], [activities], [price]);
 
     const navigate = useNavigate();
 

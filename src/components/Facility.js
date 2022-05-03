@@ -6,13 +6,18 @@ import "@reach/combobox/styles.css";
 import Places from "./NewPlaces";
 import HeaderBar from "./HeaderBar";
 import '../styles/facility.css'
+import useAuth from '../hooks/useAuth';
 import axios from "axios";
 
-const handleSubmit = async (e, navigate, name, description) => {
+const handleSubmit = async (e, navigate, name, description, price, id) => {
     e.preventDefault();
+    console.log(id);
     const locationDto = {
+        ownerId: id,
         name: name,
-        description: description
+        description: description,
+        price: price
+
     };
     let response;
     await axios.post("http://localhost:80/location/createLocation", locationDto)
@@ -22,7 +27,7 @@ const handleSubmit = async (e, navigate, name, description) => {
         })
 
     if (response !== "") {
-        navigate('/home')
+        navigate('/owner-dashboard')
     } else {
         alert("Credentials do not match any account.")
     }
@@ -44,6 +49,8 @@ function Facility() {
     const [facilityCity, setFacilityCity] = useState('');
     const [facilityState, setFacilityState] = useState('');
     const [facilityZip, setFacilityZip] = useState('');
+
+    const { auth } = useAuth();
 
     const mapRef = useRef();
     const center = useMemo(
@@ -69,6 +76,7 @@ function Facility() {
     if (!isLoaded) return <div>Loading...</div>
 
     return (
+
         <div className="facility-page">
             <HeaderBar />
             <div className="facility-body">
@@ -112,7 +120,7 @@ function Facility() {
                             <input name="zip" className="form-control zip-number" placeholder="Zipcode..." value={facilityZip} type="text" onChange={e => setFacilityZip(e.target.value)} required />
                         </div>
                     </div>
-                    <input type="submit" className="btn btn-dark btn-block add-facility-submit" value="Save Park" onClick={e => handleSubmit(e, navigate, facilityName, facilityDescription)} />
+                    <input type="submit" className="btn btn-dark btn-block add-facility-submit" value="Save Park" onClick={e => handleSubmit(e, navigate, facilityName, facilityDescription, facilityPrice, auth.id)} />
                 </div>
             </div>
         </div>
