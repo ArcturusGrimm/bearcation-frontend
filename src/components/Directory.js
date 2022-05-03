@@ -38,7 +38,7 @@ function Directory() {
 
     useEffect(async () =>{
         let response;
-        await axios.get("http://localhost:80/user/users")
+        await axios.get("https://bearcation-backend.herokuapp.com/user/users")
             .then(res => {
                 console.log(res);
                 response = res.data;

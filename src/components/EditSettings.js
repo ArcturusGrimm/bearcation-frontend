@@ -14,7 +14,7 @@ const handleSave = async(e, navigate, id, firstName, lastName, email) => {
         email: email
     };
     let response;
-    await axios.patch("http://localhost:80/account/editAccount", userDto)
+    await axios.patch("https://bearcation-backend.herokuapp.com/account/editAccount", userDto)
         .then(res => {
             console.log(res);
             response = res.data;
@@ -44,7 +44,7 @@ function EditSettings(){
 
     useEffect(async () =>{
         let response;
-        await axios.get("http://localhost:80/user/" + auth.id)
+        await axios.get("https://bearcation-backend.herokuapp.com/user/" + auth.id)
             .then(res => {
                 console.log(res);
                 response = res.data;

@@ -66,7 +66,7 @@ function Explore() {
 
     useEffect(async () =>{
         let response;
-        await axios.get("http://localhost:80/location/activities")
+        await axios.get("https://bearcation-backend.herokuapp.com/location/activities")
             .then(res => {
                 console.log(res);
                 response = res.data;
@@ -88,12 +88,12 @@ function Explore() {
             price: price,
             activities: activities
         };
-        await axios.post("http://localhost:80/location/search2", recommendDto).then(res => {
+        await axios.post("https://bearcation-backend.herokuapp.com/location/search2", recommendDto).then(res => {
             response = res.data;
         })
         console.log("r", response);
 
-        // await axios.get("http://localhost:80/location/locations")
+        // await axios.get("https://bearcation-backend.herokuapp.com/location/locations")
         //     .then(res => {
         //
         //         response = res.data;

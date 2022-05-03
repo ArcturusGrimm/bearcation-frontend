@@ -54,7 +54,7 @@ function CustomerDashboard() {
             price: 0.0,
             activities: []
         };
-        await axios.post("http://localhost:80/location/search", recommendDto)
+        await axios.post("https://bearcation-backend.herokuapp.com/location/search", recommendDto)
             .then(res => {
                 response = res.data;
                 console.log(response);
@@ -65,7 +65,7 @@ function CustomerDashboard() {
 
     useEffect(async () =>{
         let response;
-        await axios.get("http://localhost:80/review/search/user/" + auth.id)
+        await axios.get("https://bearcation-backend.herokuapp.com/review/search/user/" + auth.id)
             .then(res => {
                 response = res.data;
                 console.log(response);
