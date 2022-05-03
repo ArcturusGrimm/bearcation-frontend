@@ -131,7 +131,10 @@ function HeaderBar() {
                 <Avatar /> Profile
               </MenuItem>
               <Divider />
-              <MenuItem>
+              <MenuItem onClick={() => {
+                  (navigate('/settings'))
+                }
+              }>
                 <ListItemIcon>
                   <Settings fontSize="large" />
                 </ListItemIcon>

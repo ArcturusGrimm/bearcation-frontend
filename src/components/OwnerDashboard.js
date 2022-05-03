@@ -72,7 +72,7 @@ function OwnerDashboard() {
                 <Button 
                     variant="success"
                     className="owner-add-park-button"
-                    onClick={() => navigate('/facility', {})}
+                    onClick={() => navigate('/facility')}
                 >
                     <MdAddCircleOutline/>{' '}
                     Add a Park

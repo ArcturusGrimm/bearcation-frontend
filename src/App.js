@@ -19,6 +19,7 @@ import OwnerDashboard from './components/OwnerDashboard';
 import EditSettings from './components/EditSettings'
 import CustomerDetails from "./components/CustomerDetails";
 import RequireAuth from './components/RequireAuth';
+import PageNotFound from './components/PageNotFound';
 
 function App() {
     return (
@@ -50,6 +51,8 @@ function App() {
                     <Route path='/header-bar' element={<HeaderBar/>}/>
                     <Route path='/nps' element={<NPSComponent/>}/>
                     <Route path='/search' element={<Home/>}/>
+
+                    <Route path="/*" element={<PageNotFound/>} />
                 </Routes>
             </AuthProvider>
         </BrowserRouter>
