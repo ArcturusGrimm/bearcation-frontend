@@ -60,7 +60,7 @@ function CustomerDashboard() {
                             Explore National Parks and Landmarks!
                         </h2>
                     </Link>
-                    <Link to="/">
+                    <Link to="/settings">
                         <h2 className="customer-dashboard-settings-text">
                             Edit Settings
                         </h2>
@@ -80,7 +80,6 @@ function CustomerDashboard() {
                                 Sorry, we do not have any recommended parks.
                             </div>
                         )
-
                     }
                 </div>
             </div>

@@ -24,12 +24,11 @@ function EditSettings(){
                     <div className="settings-email-group form-group">
                         <input name = "email" className="form-control settings-email-text" placeholder="Email" value={email} type="text" onChange={e => setEmail(e.target.value)} required />
                     </div>
-                    <div className="settings-password-group form-group">
+                    {/* <div className="settings-password-group form-group">
                         <input name = "password" className="form-control" placeholder="Password" value={password} type="password" onChange={e => setPassword(e.target.value)} required />
-                    </div>
+                    </div> */}
                     <input type="submit" className="btn btn-dark btn-block settings-submit" value="Save" />
-                    <input type="button" className="btn btn-dark btn-block settings-cancel" value="Cancel" />
-
+                    <input type="button" className="btn btn-dark btn-block settings-cancel" value="Cancel" onClick={() => {navigate(-1)}} />
                 </form>
             </div>
         </div>
