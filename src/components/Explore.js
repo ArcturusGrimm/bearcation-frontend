@@ -7,6 +7,8 @@ import Multiselect from 'multiselect-react-dropdown';
 import { Slider } from '@mui/material';
 import Button from '@mui/material/Button';
 import HeaderBar from "./HeaderBar";
+import useAuth from '../hooks/useAuth';
+
 
 
 import "@reach/combobox/styles.css";
@@ -14,6 +16,7 @@ import '../styles/explore.css'
 import NewPlaces from "./NewPlaces";
 import axios from "axios";
 import {map} from "react-bootstrap/ElementChildren";
+
 
 const grandCanyon = {
     'name': 'Grand Canyon',
@@ -44,6 +47,7 @@ function PlaceCard(name, description, distance, navigate) {
 function Explore() {
 
     const location = useLocation();
+    const { auth } = useAuth();
 
     const [vacationLocation, setVacationLocation] = useState();
     const [places, setPlaces] = useState([]);
@@ -62,7 +66,7 @@ function Explore() {
 
     useEffect(async () =>{
         let response;
-        await axios.get("https://bearcation-backend.herokuapp.com/location/activities")
+        await axios.get("http://localhost:80/location/activities")
             .then(res => {
                 console.log(res);
                 response = res.data;
@@ -74,8 +78,8 @@ function Explore() {
 
     useEffect(async () =>{
         let response;
-        let latitude = vacationLocation.lat;
-        let longitude = vacationLocation.lng;
+        let latitude = (vacationLocation.lat) ? (vacationLocation.lat) : 35.55 ;
+        let longitude = (vacationLocation.lng) ? (vacationLocation.lng) : 97.15;
         let price = 0;
 
         const recommendDto = {
@@ -84,17 +88,18 @@ function Explore() {
             price: price,
             activities: ["Biking"]
         };
-        await axios.post("https://bearcation-backend.herokuapp.com/location/search", recommendDto).then(res => {
-            response = res.data;
-        })
-        console.log("r", response);
+        // await axios.post("http://localhost:80/location/search", recommendDto).then(res => {
+        //     response = res.data;
+        // })
+        // console.log("r", response);
 
-        // await axios.get("https://bearcation-backend.herokuapp.com/location/locations")
+        // await axios.get("http://localhost:80/location/locations")
         //     .then(res => {
         //
         //         response = res.data;
         //     })
-        setLocations(response);
+        // setLocations(response);
+        // setLocations(['5', '1']); (unmounted object)
     }, [vacationLocation]);
 
     const navigate = useNavigate();
@@ -125,9 +130,9 @@ function Explore() {
         <div className="explore-page">
             <HeaderBar />
             <div className="explore-body">
-                {(location.state.name !== "guest") ?
+                {(auth?.firstName) ?
                 (
-                    <h1>Explore Parks, {location.state.name}!</h1>
+                    <h1>Explore Parks, {auth.firstName}!</h1>
                 ) : (
                     <h1>Explore Parks!</h1>
                 )}

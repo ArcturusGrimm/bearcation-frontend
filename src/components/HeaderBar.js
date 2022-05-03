@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
+import Login from '@mui/icons-material/Login';
 import Logout from '@mui/icons-material/Logout';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { createTheme } from '@mui/material/styles';
@@ -19,6 +20,8 @@ import { createTheme } from '@mui/material/styles';
 
 import '../styles/headerBar.css'
 import { useNavigate } from "react-router-dom";
+import useAuth from '../hooks/useAuth';
+
 
 const theme = createTheme({
   status: {
@@ -37,16 +40,13 @@ const theme = createTheme({
 });
 
 function HeaderBar() {
-  const [auth, setAuth] = useState(false);
+  const { auth, setAuth } = useAuth();
+
   const [anchorEl, setAnchorEl] = useState(null);
 
   const navigate = useNavigate();
 
   const open = Boolean(anchorEl);
-
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -116,25 +116,50 @@ function HeaderBar() {
             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
           >
-            <MenuItem
-              onClick={() => navigate('/customer-dashboard', { state:{fName: "Francis"}})
+            {(auth?.email) && (
+              <>
+              <MenuItem
+                onClick={() => {
+                  (auth?.email)
+                    ? (auth.role == "Customer")
+                      ? navigate("/customer-dashboard")
+                      : navigate("/owner-dashboard")
+                    : navigate("/");
+                }
               }
-            >
-              <Avatar /> Profile
-            </MenuItem>
-            <Divider />
-            <MenuItem>
-              <ListItemIcon>
-                <Settings fontSize="large" />
-              </ListItemIcon>
-              Settings
-            </MenuItem>
-            <MenuItem onClick={() => (navigate('/'))}>
-              <ListItemIcon>
-                <Logout fontSize="large" />
-              </ListItemIcon>
-              Logout
-            </MenuItem>
+              >
+                <Avatar /> Profile
+              </MenuItem>
+              <Divider />
+              <MenuItem>
+                <ListItemIcon>
+                  <Settings fontSize="large" />
+                </ListItemIcon>
+                Settings
+              </MenuItem>
+              <MenuItem onClick={() => {
+                  setAuth({});
+                  (navigate('/'));
+                }
+              }>
+                <ListItemIcon>
+                  <Logout fontSize="large" />
+                </ListItemIcon>
+                Logout
+              </MenuItem>
+              </>
+            )}
+            {!(auth?.email) && (
+              <MenuItem onClick={() => {
+                  (navigate('/'));
+                }
+              }>
+                <ListItemIcon>
+                  <Login fontSize="large" />
+                </ListItemIcon>
+                Login
+              </MenuItem>
+            )}
           </Menu>
         </div>
       </Toolbar>

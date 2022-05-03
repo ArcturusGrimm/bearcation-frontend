@@ -18,7 +18,7 @@ const signup = async (emailArg, passwordArg, firstnameArg, lastnameArg) => {
         lastName: lastnameArg
     };
     let response;
-    await axios.post("https://bearcation-backend.herokuapp.com/account/createAccount", signUpDto)
+    await axios.post("http://localhost:80/account/createAccount", signUpDto)
         .then(res => {
             console.log(res);
             response = res.data;

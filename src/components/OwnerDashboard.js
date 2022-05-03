@@ -9,6 +9,7 @@ import Button from 'react-bootstrap/Button';
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { MdAddCircleOutline } from "react-icons/md";
 import {useNavigate, Link, useLocation} from "react-router-dom";
+import useAuth from '../hooks/useAuth';
 
 import '../styles/ownerDashboard.css'
 import HeaderBar from "./HeaderBar";
@@ -47,6 +48,8 @@ function DashboardParkCard({ park }, navigate){
 
 function OwnerDashboard() {
 
+    const { auth } = useAuth();
+
     const [vacationLocation, setVacationLocation] = useState();
     const navigate = useNavigate();
     const location = useLocation();
@@ -57,9 +60,9 @@ function OwnerDashboard() {
             <div className="owner-dashboard-body">
                 <div className="owner-dashboard-details">
                     <h1 className="owner-dashboard-welcome-text">
-                        <b>Hello, {location.state.fName}!</b>
+                        <b>Hello, {auth.firstName}!</b>
                     </h1>
-                    <Link to="/">
+                    <Link to="/settings">
                         <h2 className="owner-dashboard-settings-text">
                             Edit Settings
                         </h2>
