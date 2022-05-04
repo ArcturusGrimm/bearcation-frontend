@@ -23,9 +23,8 @@ const handlePostSubmit = async (e, navigate, auth, rating, review, id) => {
         description: review,
     };
     let response;
-    await axios
-        .post("https://bearcation-backend.herokuapp.com/review/createReview", reviewDto)
-        .then((res) => {
+    await axios.post("https://bearcation-backend.herokuapp.com/review/createReview", reviewDto)
+        .then(res => {
             console.log(res);
             response = res.data;
         });

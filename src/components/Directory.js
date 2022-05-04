@@ -38,11 +38,12 @@ function Directory() {
 
     useEffect(async () => {
         let response;
-        await axios.get("https://bearcation-backend.herokuapp.com/user/users").then((res) => {
-            console.log(res);
-            response = res.data;
-        });
-        console.log(response);
+        await axios.get("https://bearcation-backend.herokuapp.com/user/users")
+            .then(res => {
+                console.log(res);
+                response = res.data;
+            })
+        console.log(response)
         setPeople(response);
     }, []);
 

@@ -38,7 +38,7 @@ function LocationPage() {
 
     useEffect(async () =>{
         let response;
-        await axios.get("http://localhost:80/review/search/location/" + location.state.id)
+        await axios.get("https://bearcation-backend.herokuapp.com/review/search/location/" + location.state.id)
             .then(res => {
                 console.log(res);
                 response = res.data;
@@ -47,7 +47,7 @@ function LocationPage() {
         setReviews(response);
 
         let response2;
-        await axios.get("http://localhost:80/location/search/" + location.state.id)
+        await axios.get("https://bearcation-backend.herokuapp.com/location/search/" + location.state.id)
             .then(res => {
                 console.log(res);
                 response2 = res.data;

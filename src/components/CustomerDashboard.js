@@ -53,9 +53,8 @@ function CustomerDashboard() {
             price: 0.0,
             activities: [],
         };
-        await axios
-            .post("https://bearcation-backend.herokuapp.com/location/search", recommendDto)
-            .then((res) => {
+        await axios.post("https://bearcation-backend.herokuapp.com/location/search", recommendDto)
+            .then(res => {
                 response = res.data;
                 console.log(response);
             });
@@ -64,9 +63,8 @@ function CustomerDashboard() {
 
     useEffect(async () => {
         let response;
-        await axios
-            .get("https://bearcation-backend.herokuapp.com/review/search/user/" + auth.id)
-            .then((res) => {
+        await axios.get("https://bearcation-backend.herokuapp.com/review/search/user/" + auth.id)
+            .then(res => {
                 response = res.data;
                 console.log(response);
             });

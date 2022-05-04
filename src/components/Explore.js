@@ -58,9 +58,8 @@ function Explore() {
 
     useEffect(async () => {
         let response;
-        await axios
-            .get("https://bearcation-backend.herokuapp.com/location/activities")
-            .then((res) => {
+        await axios.get("https://bearcation-backend.herokuapp.com/location/activities")
+            .then(res => {
                 console.log(res);
                 response = res.data;
             });
@@ -81,13 +80,13 @@ function Explore() {
             price: price,
             activities: activities,
         };
-        await axios
-            .post("https://bearcation-backend.herokuapp.com/location/search2", recommendDto)
-            .then((res) => {
-                response = res.data;
-            });
+        
+        await axios.post("https://bearcation-backend.herokuapp.com/location/search2", recommendDto).then(res => {
+            response = res.data;
+        })
         console.log("r", response);
-
+        
+        
         // await axios.get("https://bearcation-backend.herokuapp.com/location/locations")
         //     .then(res => {
         //

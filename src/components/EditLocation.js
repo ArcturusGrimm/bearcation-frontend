@@ -24,9 +24,8 @@ const handleSubmit = async (e, navigate, name, description, price, id, city, sta
         longitude: state,
     };
     let response;
-    await axios
-        .patch("https://bearcation-backend.herokuapp.com/location/editLocation", locationDto)
-        .then((res) => {
+    await axios.patch("https://bearcation-backend.herokuapp.com/location/editLocation", locationDto)
+        .then(res => {
             console.log(res);
             response = res.data;
         });
@@ -63,9 +62,8 @@ function EditLocation() {
 
     useEffect(async () => {
         let response;
-        await axios
-            .get("https://bearcation-backend.herokuapp.com/location/search/" + location.state.id)
-            .then((res) => {
+        await axios.get("https://bearcation-backend.herokuapp.com/location/search/" + location.state.id)
+            .then(res => {
                 console.log(res);
                 response = res.data;
             });

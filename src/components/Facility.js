@@ -24,6 +24,7 @@ const handleSubmit = async (e, navigate, name, description, price, id, city, sta
         longitude: state,
     };
     let response;
+
     await axios
         .post("https://bearcation-backend.herokuapp.com/location/createLocation", locationDto)
         .then((res) => {

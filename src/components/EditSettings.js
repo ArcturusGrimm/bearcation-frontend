@@ -14,9 +14,8 @@ const handleSave = async (e, navigate, id, firstName, lastName, email) => {
         email: email,
     };
     let response;
-    await axios
-        .patch("https://bearcation-backend.herokuapp.com/account/editAccount", userDto)
-        .then((res) => {
+    await axios.patch("https://bearcation-backend.herokuapp.com/account/editAccount", userDto)
+        .then(res => {
             console.log(res);
             response = res.data;
         });
@@ -41,11 +40,12 @@ function EditSettings() {
 
     useEffect(async () => {
         let response;
-        await axios.get("https://bearcation-backend.herokuapp.com/user/" + auth.id).then((res) => {
-            console.log(res);
-            response = res.data;
-        });
-        console.log(response);
+        await axios.get("https://bearcation-backend.herokuapp.com/user/" + auth.id)
+            .then(res => {
+                console.log(res);
+                response = res.data;
+            })
+        console.log(response)
         setCredentials(response);
         setFirstname(response.firstName);
         setLastname(response.lastName);

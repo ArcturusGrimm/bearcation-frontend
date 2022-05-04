@@ -10,18 +10,19 @@ const handleSubmit = async (e, navigate, username) => {
     const userDto = {
         username: username,
     };
-    let response;
-    await axios.post("https://bearcation-backend.herokuapp.com/user/check", userDto).then((res) => {
-        console.log(res);
-        response = res.data;
-        //response = res.data.username;
-    });
+     let response;
+    await axios.post("https://bearcation-backend.herokuapp.com/user/check", userDto)
+     .then(res => {
+         console.log(res);
+         response = res.data;
+         //response = res.data.username;
+     })
 
-    console.log("response " + response);
-    if (response !== "") {
-        navigate("/home");
-    } else {
-        alert("Credentials do not match any account.");
+    console.log("response " + response)
+    if(response !== ""){
+        navigate('/home')
+    }else{
+        alert("Credentials do not match any account.")
     }
 };
 

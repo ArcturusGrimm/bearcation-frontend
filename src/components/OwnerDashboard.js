@@ -24,9 +24,9 @@ const parkExample = { name: "Alaska National Park" };
 
 const handleDeleteLocation = async (e, navigate, id) => {
     e.preventDefault();
-    await axios.get("https://bearcation-backend.herokuapp.com/location/delete/" + id);
-    navigate("/owner-dashboard");
-};
+    await axios.get("https://bearcation-backend.herokuapp.com/location/delete/" + id)
+    navigate('/owner-dashboard')
+}
 
 const handleEditLocation = async (e, navigate, id) => {
     e.preventDefault();
@@ -64,9 +64,8 @@ function OwnerDashboard() {
 
     useEffect(async () => {
         let response;
-        await axios
-            .get("https://bearcation-backend.herokuapp.com/location/search/user/" + auth.id)
-            .then((res) => {
+        await axios.get("https://bearcation-backend.herokuapp.com/location/search/user/" + auth.id)
+            .then(res => {
                 console.log(res);
                 response = res.data;
             });
