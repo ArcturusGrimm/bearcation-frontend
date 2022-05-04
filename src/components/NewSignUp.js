@@ -10,12 +10,13 @@ import axios from "axios";
 import "../styles/signup.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const signup = async (emailArg, passwordArg, firstnameArg, lastnameArg) => {
+const signup = async (emailArg, passwordArg, firstnameArg, lastnameArg, roleArg) => {
     const signUpDto = {
         email: emailArg,
         password: passwordArg,
         firstName: firstnameArg,
         lastName: lastnameArg,
+        role: roleArg
     };
     let response;
     await axios.post("http://localhost:80/account/createAccount", signUpDto)
@@ -26,7 +27,7 @@ const signup = async (emailArg, passwordArg, firstnameArg, lastnameArg) => {
     return response;
 };
 
-const handleSubmit = async (e, navigate, email, password, confirmPassword, firstname, lastname) => {
+const handleSubmit = async (e, navigate, email, password, confirmPassword, firstname, lastname, role) => {
     e.preventDefault();
 
     if (firstname.length < 1 && firstname.length > 255) {
@@ -61,7 +62,7 @@ const handleSubmit = async (e, navigate, email, password, confirmPassword, first
         return;
     }
 
-    const response = await signup(email, password, firstname, lastname);
+    const response = await signup(email, password, firstname, lastname, role);
     if (response !== "") {
         navigate("/");
     } else {
@@ -97,7 +98,8 @@ function NewSignUp() {
                             password,
                             confirmPassword,
                             firstname,
-                            lastname
+                            lastname,
+                            role
                         )
                     }
                 >
