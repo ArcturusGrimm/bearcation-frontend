@@ -5,14 +5,6 @@ import HeaderBar from "./HeaderBar";
 import '../styles/locationPage.css'
 import axios from "axios";
 
-const AlaskaPark = {
-    'name': 'Alaska National Park',
-    'description': 'With millions of acres of diverse and vital wilderness and a human history reaching back 14,000 years...',
-    'activities': ['Hunting', 'Fishing', 'Boating', 'Camping'],
-    'price': 4.99,
-    'rating': 4.8
-}
-
 function ReviewCard({review}){
     return(
         <div className="review-card">
@@ -21,7 +13,6 @@ function ReviewCard({review}){
         </div>
     );
 }
-
 
 function LocationPage() {
 
@@ -38,7 +29,7 @@ function LocationPage() {
 
     useEffect(async () =>{
         let response;
-        await axios.get("https://bearcation-backend.herokuapp.com/review/search/location/" + location.state.id)
+        await axios.get("http://localhost:80/review/search/location/" + location.state.id)
             .then(res => {
                 console.log(res);
                 response = res.data;
@@ -47,7 +38,7 @@ function LocationPage() {
         setReviews(response);
 
         let response2;
-        await axios.get("https://bearcation-backend.herokuapp.com/location/search/" + location.state.id)
+        await axios.get("http://localhost:80/location/search/" + location.state.id)
             .then(res => {
                 console.log(res);
                 response2 = res.data;
@@ -71,9 +62,9 @@ function LocationPage() {
                 <h1 className="location-name-text"><b>{locAtr.name}</b></h1>
 
                 {/* Description */}
-                <h6 className="location-description-text">
+                <h4 className="location-description-text">
                     {locAtr.description}
-                </h6>
+                </h4>
 
                 {/* Activites */}
                 <div className="location-activities-group">

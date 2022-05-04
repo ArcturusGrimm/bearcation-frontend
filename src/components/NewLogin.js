@@ -19,7 +19,7 @@ const handleSubmit = async (e, setAuth, navigate, email, password, role) => {
         password: password,
     };
     let response;
-    await axios.post("https://bearcation-backend.herokuapp.com/account/login", loginDto)
+    await axios.post("http://localhost:80/account/login", loginDto)
         .then(res => {
             console.log(res);
             response = res.data;

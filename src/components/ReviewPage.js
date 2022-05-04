@@ -6,16 +6,22 @@ import HeaderBar from "./HeaderBar";
 import useAuth from "../hooks/useAuth";
 import axios from "axios";
 
-const AlaskaPark = {
-    name: "Alaska National Park",
-    description:
-        "With millions of acres of diverse and vital wilderness and a human history reaching back 14,000 years...",
-    activities: ["Hunting", "Fishing", "Boating", "Camping"],
-    price: 4.99,
-    rating: 4.8,
-};
 const handlePostSubmit = async (e, navigate, auth, rating, review, id) => {
     e.preventDefault();
+
+    if (isNaN(rating) || rating < 0 || rating > 5){
+        alert("Enter a rating from 0 to 5.")
+        return;
+    }
+    if (review.length < 1){
+        alert("Please add a description.");
+        return;
+    }
+    if (review.length > 255){
+        alert("The review is too long. Please limit to 255 characters.");
+        return;
+    }
+
     const reviewDto = {
         locationId: id,
         ownerId: auth.id,
@@ -23,7 +29,7 @@ const handlePostSubmit = async (e, navigate, auth, rating, review, id) => {
         description: review,
     };
     let response;
-    await axios.post("https://bearcation-backend.herokuapp.com/review/createReview", reviewDto)
+    await axios.post("http://localhost:80/review/createReview", reviewDto)
         .then(res => {
             console.log(res);
             response = res.data;

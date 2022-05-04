@@ -7,6 +7,28 @@ import useAuth from "../hooks/useAuth";
 
 const handleSave = async (e, navigate, id, firstName, lastName, email) => {
     e.preventDefault();
+    
+    if (firstName.length < 1 && firstName.length > 255) {
+        alert("Invalid first name.");
+        return;
+    }
+    if (lastName.length < 1 && lastName.length > 255) {
+        alert("Invalid last name.");
+        return;
+    }
+    if (
+        !email.match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )
+    ) {
+        alert("Please use a valid email address.");
+        return;
+    }
+    if (email.length > 255) {
+        alert("Please use a valid email address.");
+        return;
+    }
+    
     const userDto = {
         id: id,
         firstName: firstName,
@@ -14,7 +36,7 @@ const handleSave = async (e, navigate, id, firstName, lastName, email) => {
         email: email,
     };
     let response;
-    await axios.patch("https://bearcation-backend.herokuapp.com/account/editAccount", userDto)
+    await axios.patch("http://localhost:80/account/editAccount", userDto)
         .then(res => {
             console.log(res);
             response = res.data;
@@ -40,7 +62,7 @@ function EditSettings() {
 
     useEffect(async () => {
         let response;
-        await axios.get("https://bearcation-backend.herokuapp.com/user/" + auth.id)
+        await axios.get("http://localhost:80/user/" + auth.id)
             .then(res => {
                 console.log(res);
                 response = res.data;
