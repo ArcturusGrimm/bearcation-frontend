@@ -11,6 +11,7 @@ import "../styles/directory.css";
 import HeaderBar from "./HeaderBar";
 import { ModalBody } from "react-bootstrap";
 import axios from "axios";
+import { baseUrl } from "../App";
 
 function PersonCard({ person }) {
     return (
@@ -32,7 +33,7 @@ function Directory() {
 
     useEffect(async () => {
         let response;
-        await axios.get("http://localhost:80/user/users")
+        await axios.get(baseUrl + "user/users")
             .then(res => {
                 console.log(res);
                 response = res.data;

@@ -5,6 +5,7 @@ import axios from 'axios';
 import '../styles/forgotPassword.css'
 import "bootstrap/dist/css/bootstrap.min.css"
 import HeaderBar from "./HeaderBar";
+import { baseUrl } from "../App";
 
 const handleSubmit = async(e, navigate, username) => {
     e.preventDefault();
@@ -12,7 +13,7 @@ const handleSubmit = async(e, navigate, username) => {
         username: username,
     };
     let response;
-    await axios.post("http://localhost:80/user/check", userDto)
+    await axios.post(baseUrl + "user/check", userDto)
         .then(res => {
             console.log(res);
             response = res.data;

@@ -14,6 +14,7 @@ import "../styles/explore.css";
 import NewPlaces from "./NewPlaces";
 import axios from "axios";
 import { map } from "react-bootstrap/ElementChildren";
+import { baseUrl } from "../App";
 
 function PlaceCard(park, navigate) {
     return (
@@ -53,7 +54,7 @@ function Explore() {
 
     useEffect(async () => {
         let response;
-        await axios.get("http://localhost:80/location/activities")
+        await axios.get(baseUrl + "location/activities")
             .then(res => {
                 console.log(res);
                 response = res.data;
@@ -75,7 +76,7 @@ function Explore() {
             activities: activities,
         };
         
-        await axios.post("http://localhost:80/location/search2", recommendDto).then(res => {
+        await axios.post(baseUrl + "location/search2", recommendDto).then(res => {
             response = res.data;
         })
         console.log("r", response);

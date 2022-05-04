@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import HeaderBar from "./HeaderBar";
 import useAuth from "../hooks/useAuth";
 import axios from "axios";
+import { baseUrl } from "../App";
 
 const handlePostSubmit = async (e, navigate, auth, rating, review, id) => {
     e.preventDefault();
@@ -29,7 +30,7 @@ const handlePostSubmit = async (e, navigate, auth, rating, review, id) => {
         description: review,
     };
     let response;
-    await axios.post("http://localhost:80/review/createReview", reviewDto)
+    await axios.post(baseUrl + "review/createReview", reviewDto)
         .then(res => {
             console.log(res);
             response = res.data;

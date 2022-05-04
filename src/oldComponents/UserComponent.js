@@ -5,6 +5,7 @@ import UserService from '../services/UserService';
 
 import axios from 'axios';
 import ForgotPassword from "../components/ForgotPassword";
+import { baseUrl } from '../App';
 
 class UserComponent extends React.Component {
     accounts = [];
@@ -44,7 +45,7 @@ class UserComponent extends React.Component {
             username: this.state.username,
         };
 
-        axios.post("http://localhost:80/user/users", userDto)
+        axios.post(baseUrl + "user/users", userDto)
             .then(res => {
                 console.log('Account added successfully!');
                 console.log(res);

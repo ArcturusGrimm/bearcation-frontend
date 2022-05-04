@@ -11,6 +11,7 @@ import useAuth from "../hooks/useAuth";
 import axios from "axios";
 import "../styles/login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { baseUrl } from "../App";
 
 const handleSubmit = async (e, setAuth, navigate, email, password, role) => {
     e.preventDefault();
@@ -19,7 +20,7 @@ const handleSubmit = async (e, setAuth, navigate, email, password, role) => {
         password: password,
     };
     let response;
-    await axios.post("http://localhost:80/account/login", loginDto)
+    await axios.post(baseUrl + "account/login", loginDto)
         .then(res => {
             console.log(res);
             response = res.data;

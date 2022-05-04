@@ -10,6 +10,7 @@ import HeaderBar from "./HeaderBar";
 import "../styles/facility.css";
 import useAuth from "../hooks/useAuth";
 import axios from "axios";
+import { baseUrl } from "../App";
 
 const handleSubmit = async (e, navigate, name, description, price, id, city, state, locId) => {
     e.preventDefault();
@@ -24,7 +25,7 @@ const handleSubmit = async (e, navigate, name, description, price, id, city, sta
         longitude: state,
     };
     let response;
-    await axios.patch("http://localhost:80/location/editLocation", locationDto)
+    await axios.patch(baseUrl + "location/editLocation", locationDto)
         .then(res => {
             console.log(res);
             response = res.data;
@@ -60,7 +61,7 @@ function EditLocation() {
 
     useEffect(async () => {
         let response;
-        await axios.get("http://localhost:80/location/search/" + location.state.id)
+        await axios.get(baseUrl + "location/search/" + location.state.id)
             .then(res => {
                 console.log(res);
                 response = res.data;

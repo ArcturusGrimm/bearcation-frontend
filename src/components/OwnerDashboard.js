@@ -13,10 +13,11 @@ import useAuth from "../hooks/useAuth";
 import "../styles/ownerDashboard.css";
 import HeaderBar from "./HeaderBar";
 import axios from "axios";
+import { baseUrl } from "../App";
 
 const handleDeleteLocation = async (e, navigate, id) => {
     e.preventDefault();
-    await axios.get("http://localhost:80/location/delete/" + id)
+    await axios.get(baseUrl + "location/delete/" + id)
     navigate('/owner-dashboard')
 }
 
@@ -56,7 +57,7 @@ function OwnerDashboard() {
 
     useEffect(async () => {
         let response;
-        await axios.get("http://localhost:80/location/search/user/" + auth.id)
+        await axios.get(baseUrl + "location/search/user/" + auth.id)
             .then(res => {
                 console.log(res);
                 response = res.data;

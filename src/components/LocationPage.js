@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import HeaderBar from "./HeaderBar";
 import '../styles/locationPage.css'
 import axios from "axios";
+import { baseUrl } from "../App";
 
 function ReviewCard({review}){
     return(
@@ -29,7 +30,7 @@ function LocationPage() {
 
     useEffect(async () =>{
         let response;
-        await axios.get("http://localhost:80/review/search/location/" + location.state.id)
+        await axios.get(baseUrl + "review/search/location/" + location.state.id)
             .then(res => {
                 console.log(res);
                 response = res.data;
@@ -38,7 +39,7 @@ function LocationPage() {
         setReviews(response);
 
         let response2;
-        await axios.get("http://localhost:80/location/search/" + location.state.id)
+        await axios.get(baseUrl + "location/search/" + location.state.id)
             .then(res => {
                 console.log(res);
                 response2 = res.data;

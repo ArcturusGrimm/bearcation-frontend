@@ -3,6 +3,7 @@ import UserService from "../services/UserService";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import HeaderBar from "./HeaderBar";
+import { baseUrl } from "../App";
 
 class ForgotPassword extends React.Component {
     accounts = [];
@@ -43,7 +44,7 @@ class ForgotPassword extends React.Component {
         alert("Why does this not work?");
         //this.props.navigation.navigate('/home')
 
-        axios.get("http://localhost:80/user/users", userDto).then((res) => {
+        axios.get(baseUrl + "user/users", userDto).then((res) => {
             console.log("Password changed successfully!");
             console.log(res);
             this.setState({

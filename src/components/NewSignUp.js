@@ -9,6 +9,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "../styles/signup.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { baseUrl } from "../App";
 
 const signup = async (emailArg, passwordArg, firstnameArg, lastnameArg) => {
     const signUpDto = {
@@ -18,7 +19,7 @@ const signup = async (emailArg, passwordArg, firstnameArg, lastnameArg) => {
         lastName: lastnameArg,
     };
     let response;
-    await axios.post("http://localhost:80/account/createAccount", signUpDto)
+    await axios.post(baseUrl + "account/createAccount", signUpDto)
         .then(res => {
             console.log(res);
             response = res.data;

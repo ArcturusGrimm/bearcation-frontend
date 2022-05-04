@@ -9,6 +9,7 @@ import HeaderBar from "./HeaderBar";
 import "../styles/facility.css";
 import useAuth from "../hooks/useAuth";
 import axios from "axios";
+import { baseUrl } from "../App";
 
 const handleSubmit = async (e, navigate, name, description, price, id, lat, lng) => {
     e.preventDefault();
@@ -25,7 +26,7 @@ const handleSubmit = async (e, navigate, name, description, price, id, lat, lng)
     let response;
 
     await axios
-        .post("http://localhost:80/location/createLocation", locationDto)
+        .post(baseUrl + "location/createLocation", locationDto)
         .then((res) => {
             console.log(res);
             response = res.data;

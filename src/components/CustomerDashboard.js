@@ -12,6 +12,7 @@ import HeaderBar from "./HeaderBar";
 
 import DashboardParkCard from "./DashboardParkCard";
 import axios from "axios";
+import { baseUrl } from "../App";
 
 function ReviewCard({ review }) {
     return (
@@ -40,7 +41,7 @@ function CustomerDashboard() {
             price: 0.0,
             activities: [],
         };
-        await axios.post("http://localhost:80/location/search", recommendDto)
+        await axios.post(baseUrl + "location/search", recommendDto)
             .then(res => {
                 response = res.data;
                 console.log(response);
@@ -50,7 +51,7 @@ function CustomerDashboard() {
 
     useEffect(async () => {
         let response;
-        await axios.get("http://localhost:80/review/search/user/" + auth.id)
+        await axios.get(baseUrl + "review/search/user/" + auth.id)
             .then(res => {
                 response = res.data;
                 console.log(response);

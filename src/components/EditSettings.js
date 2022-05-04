@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../styles/editSettings.css";
 import axios from "axios";
 import useAuth from "../hooks/useAuth";
+import { baseUrl } from "../App";
 
 const handleSave = async (e, navigate, id, firstName, lastName, email) => {
     e.preventDefault();
@@ -36,7 +37,7 @@ const handleSave = async (e, navigate, id, firstName, lastName, email) => {
         email: email,
     };
     let response;
-    await axios.patch("http://localhost:80/account/editAccount", userDto)
+    await axios.patch(baseUrl + "account/editAccount", userDto)
         .then(res => {
             console.log(res);
             response = res.data;
@@ -62,7 +63,7 @@ function EditSettings() {
 
     useEffect(async () => {
         let response;
-        await axios.get("http://localhost:80/user/" + auth.id)
+        await axios.get(baseUrl + "user/" + auth.id)
             .then(res => {
                 console.log(res);
                 response = res.data;
