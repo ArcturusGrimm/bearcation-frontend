@@ -3,7 +3,6 @@ import { useLoadScript, Circle, GoogleMap, Marker } from "@react-google-maps/api
 import { useNavigate } from "react-router-dom";
 
 import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
-
 import "@reach/combobox/styles.css";
 import Places from "./NewPlaces";
 import HeaderBar from "./HeaderBar";
@@ -11,7 +10,7 @@ import "../styles/facility.css";
 import useAuth from "../hooks/useAuth";
 import axios from "axios";
 
-const handleSubmit = async (e, navigate, name, description, price, id, city, state, locID) => {
+const handleSubmit = async (e, navigate, name, description, price, id, lat, lng) => {
     e.preventDefault();
     console.log(id);
 
@@ -20,13 +19,13 @@ const handleSubmit = async (e, navigate, name, description, price, id, city, sta
         name: name,
         description: description,
         price: price,
-        latitude: city,
-        longitude: state,
+        latitude: lat,
+        longitude: lng,
     };
     let response;
 
     await axios
-        .post("https://bearcation-backend.herokuapp.com/location/createLocation", locationDto)
+        .post("http://localhost:80/location/createLocation", locationDto)
         .then((res) => {
             console.log(res);
             response = res.data;
@@ -49,10 +48,8 @@ function Facility() {
     const [facilityActivities, setFacilityActivities] = useState([]);
     const [facilityDescription, setFacilityDescription] = useState("");
 
-    const [facilityStreetAddress, setFacilityStreetAddress] = useState("");
-    const [facilityCity, setFacilityCity] = useState("");
-    const [facilityState, setFacilityState] = useState("");
-    const [facilityZip, setFacilityZip] = useState("");
+    const [facilityLat, setFacilityLat] = useState("");
+    const [facilityLng, setFacilityLng] = useState("");
 
     const { auth } = useAuth();
 
@@ -78,7 +75,7 @@ function Facility() {
         <div className="facility-page">
             <HeaderBar />
             <div className="facility-body">
-                <h1>Location</h1>
+                <h1>Add a Location</h1>
                 <div className="facility-form">
                     <div className="facility-group form-group">
                         <input
@@ -141,18 +138,18 @@ function Facility() {
                                 name="city"
                                 className="form-control city-name"
                                 placeholder="Latitude..."
-                                value={facilityCity}
+                                value={facilityLat}
                                 type="text"
-                                onChange={(e) => setFacilityCity(e.target.value)}
+                                onChange={(e) => setFacilityLat(e.target.value)}
                                 required
                             />
                             <input
                                 name="state"
                                 className="form-control state-name"
                                 placeholder="Longitude..."
-                                value={facilityState}
+                                value={facilityLng}
                                 type="text"
-                                onChange={(e) => setFacilityState(e.target.value)}
+                                onChange={(e) => setFacilityLng(e.target.value)}
                                 required
                             />
                             {/*<input name="city" className="form-control city-name" placeholder="City..." value={facilityCity} type="text" onChange={e => setFacilityCity(e.target.value)} required />*/}
@@ -160,23 +157,31 @@ function Facility() {
                             {/*<input name="zip" className="form-control zip-number" placeholder="Zipcode..." value={facilityZip} type="text" onChange={e => setFacilityZip(e.target.value)} required />*/}
                         </div>
                     </div>
-                    <input
-                        type="submit"
-                        className="btn btn-dark btn-block add-facility-submit"
-                        value="Save Park"
-                        onClick={(e) =>
-                            handleSubmit(
-                                e,
-                                navigate,
-                                facilityName,
-                                facilityDescription,
-                                facilityPrice,
-                                auth.id,
-                                facilityCity,
-                                facilityState
-                            )
-                        }
-                    />
+                    <div className="facility-button-group">
+                        <input
+                            type="submit"
+                            className="btn btn-dark btn-block add-facility-submit"
+                            value="Save Park"
+                            onClick={(e) =>
+                                handleSubmit(
+                                    e,
+                                    navigate,
+                                    facilityName,
+                                    facilityDescription,
+                                    facilityPrice,
+                                    auth.id,
+                                    facilityLat,
+                                    facilityLng
+                                )
+                            }
+                        />
+                        <input
+                            type="cancel"
+                            className="btn btn-dark btn-block cancel-facility-submit"
+                            value="Cancel"
+                            onClick={() => navigate(-1)  }
+                        />
+                    </div>
                 </div>
             </div>
         </div>

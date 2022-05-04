@@ -18,7 +18,7 @@ const signup = async (emailArg, passwordArg, firstnameArg, lastnameArg) => {
         lastName: lastnameArg,
     };
     let response;
-    await axios.post("https://bearcation-backend.herokuapp.com/account/createAccount", signUpDto)
+    await axios.post("http://localhost:80/account/createAccount", signUpDto)
         .then(res => {
             console.log(res);
             response = res.data;
@@ -29,6 +29,14 @@ const signup = async (emailArg, passwordArg, firstnameArg, lastnameArg) => {
 const handleSubmit = async (e, navigate, email, password, confirmPassword, firstname, lastname) => {
     e.preventDefault();
 
+    if (firstname.length < 1 && firstname.length > 255) {
+        alert("Invalid first name.");
+        return;
+    }
+    if (lastname.length < 1 && lastname.length > 255) {
+        alert("Invalid last name.");
+        return;
+    }
     if (
         !email.match(
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -37,12 +45,19 @@ const handleSubmit = async (e, navigate, email, password, confirmPassword, first
         alert("Please use a valid email address.");
         return;
     }
+    if (email.length > 255){
+        alert("The email is too long.");
+    }
     if (password.length < 6) {
         alert("Password must be at least 6 characters long.");
         return;
     }
     if (password !== confirmPassword) {
         alert("Confirm password must match entry for password.");
+        return;
+    }
+    if (password.length > 255) {
+        alert("The password is too long.");
         return;
     }
 

@@ -24,7 +24,7 @@ const handleSubmit = async (e, navigate, name, description, price, id, city, sta
         longitude: state,
     };
     let response;
-    await axios.patch("https://bearcation-backend.herokuapp.com/location/editLocation", locationDto)
+    await axios.patch("http://localhost:80/location/editLocation", locationDto)
         .then(res => {
             console.log(res);
             response = res.data;
@@ -49,10 +49,8 @@ function EditLocation() {
     const [facilityActivities, setFacilityActivities] = useState([]);
     const [facilityDescription, setFacilityDescription] = useState("");
 
-    const [facilityStreetAddress, setFacilityStreetAddress] = useState("");
     const [facilityCity, setFacilityCity] = useState("");
     const [facilityState, setFacilityState] = useState("");
-    const [facilityZip, setFacilityZip] = useState("");
 
     const { auth } = useAuth();
 
@@ -62,7 +60,7 @@ function EditLocation() {
 
     useEffect(async () => {
         let response;
-        await axios.get("https://bearcation-backend.herokuapp.com/location/search/" + location.state.id)
+        await axios.get("http://localhost:80/location/search/" + location.state.id)
             .then(res => {
                 console.log(res);
                 response = res.data;
@@ -81,19 +79,13 @@ function EditLocation() {
         libraries: ["places"],
     });
 
-    const searchTopPlaces = async () => {
-        //const response = await fetch(`${API_URL}&s=${title}`);
-        //const data = await response.json();
-        //setPlaces(data); data.{}
-    };
-
     if (!isLoaded) return <div>Loading...</div>;
 
     return (
         <div className="facility-page">
             <HeaderBar />
             <div className="facility-body">
-                <h1>Location</h1>
+                <h1>Edit Location</h1>
                 <div className="facility-form">
                     <div className="facility-group form-group">
                         <input
@@ -175,24 +167,32 @@ function EditLocation() {
                             {/*<input name="zip" className="form-control zip-number" placeholder="Zipcode..." value={facilityZip} type="text" onChange={e => setFacilityZip(e.target.value)} required />*/}
                         </div>
                     </div>
-                    <input
-                        type="submit"
-                        className="btn btn-dark btn-block add-facility-submit"
-                        value="Save Park"
-                        onClick={(e) =>
-                            handleSubmit(
-                                e,
-                                navigate,
-                                facilityName,
-                                facilityDescription,
-                                facilityPrice,
-                                auth.id,
-                                facilityCity,
-                                facilityState,
-                                location.state.id
-                            )
-                        }
-                    />
+                    <div className="facility-button-group">
+                        <input
+                            type="submit"
+                            className="btn btn-dark btn-block add-facility-submit"
+                            value="Save Park"
+                            onClick={(e) =>
+                                handleSubmit(
+                                    e,
+                                    navigate,
+                                    facilityName,
+                                    facilityDescription,
+                                    facilityPrice,
+                                    auth.id,
+                                    facilityCity,
+                                    facilityState,
+                                    location.state.id
+                                )
+                            }
+                        />
+                        <input
+                            type="cancel"
+                            className="btn btn-dark btn-block cancel-facility-submit"
+                            value="Cancel"
+                            onClick={() => navigate(-1)}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

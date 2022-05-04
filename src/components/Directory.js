@@ -12,12 +12,6 @@ import HeaderBar from "./HeaderBar";
 import { ModalBody } from "react-bootstrap";
 import axios from "axios";
 
-const Person = {
-    firstName: "Francis",
-    lastName: "Boyle",
-    email: "francis_boyle1@gmail.com",
-};
-
 function PersonCard({ person }) {
     return (
         <div className="person-card">
@@ -38,7 +32,7 @@ function Directory() {
 
     useEffect(async () => {
         let response;
-        await axios.get("https://bearcation-backend.herokuapp.com/user/users")
+        await axios.get("http://localhost:80/user/users")
             .then(res => {
                 console.log(res);
                 response = res.data;
@@ -46,15 +40,6 @@ function Directory() {
         console.log(response)
         setPeople(response);
     }, []);
-
-    let array = [
-        { firstName: "Francis", lastName: "Boyle", email: "francis_boyle1@baylor.edu" },
-        { firstName: "Patrick", lastName: "Boyle", email: "patrick_boyle1@baylor.edu" },
-    ];
-
-    if (people.length == 0) {
-        setPeople(array);
-    }
 
     return (
         <div className="directory-page">
@@ -64,7 +49,7 @@ function Directory() {
                     <h1 className="directory-welcome-text">
                         <b>Hello, {auth.firstName}!</b>
                         <br />
-                        View other people who love using Bearcation!
+                        View all people who love using Bearcation!
                     </h1>
                 </div>
 

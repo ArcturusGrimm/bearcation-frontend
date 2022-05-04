@@ -3,9 +3,9 @@ import { useLoadScript, Circle, GoogleMap, Marker } from "@react-google-maps/api
 import { useLocation, useNavigate } from "react-router-dom";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import IconButton from "@material-ui/core/IconButton";
+import Button from "react-bootstrap/Button";
 import Multiselect from "multiselect-react-dropdown";
 import { Slider } from "@mui/material";
-import Button from "@mui/material/Button";
 import HeaderBar from "./HeaderBar";
 import useAuth from "../hooks/useAuth";
 
@@ -14,12 +14,6 @@ import "../styles/explore.css";
 import NewPlaces from "./NewPlaces";
 import axios from "axios";
 import { map } from "react-bootstrap/ElementChildren";
-
-const grandCanyon = {
-    name: "Grand Canyon",
-    description: "canyons",
-    distance: 53.1,
-};
 
 function PlaceCard(park, navigate) {
     return (
@@ -46,8 +40,9 @@ function Explore() {
     const { auth } = useAuth();
 
     const [vacationLocation, setVacationLocation] = useState();
+    const [submit, setSubmit] = useState(0);
     const [places, setPlaces] = useState([]);
-    const [loadAdvancedSearch, setLoadAdvancedSearch] = useState(false);
+    const [locations, setLocations] = useState();
     const [activities, setActivities] = useState([]);
     const [price, setPrice] = useState(50);
     console.log(vacationLocation);
@@ -58,7 +53,7 @@ function Explore() {
 
     useEffect(async () => {
         let response;
-        await axios.get("https://bearcation-backend.herokuapp.com/location/activities")
+        await axios.get("http://localhost:80/location/activities")
             .then(res => {
                 console.log(res);
                 response = res.data;
@@ -66,7 +61,6 @@ function Explore() {
         setApiActivities(response);
     }, []);
 
-    const [locations, setLocations] = useState();
 
     useEffect(async () => {
         let response;
@@ -81,20 +75,13 @@ function Explore() {
             activities: activities,
         };
         
-        await axios.post("https://bearcation-backend.herokuapp.com/location/search2", recommendDto).then(res => {
+        await axios.post("http://localhost:80/location/search2", recommendDto).then(res => {
             response = res.data;
         })
         console.log("r", response);
-        
-        
-        // await axios.get("https://bearcation-backend.herokuapp.com/location/locations")
-        //     .then(res => {
-        //
-        //         response = res.data;
-        //     })
         setLocations(response);
-        //setLocations(['5', '1']); (unmounted object)
-    }, [vacationLocation]);
+        console.log("s", locations);        
+    }, [vacationLocation, submit]);
 
     const navigate = useNavigate();
 
@@ -137,49 +124,47 @@ function Explore() {
                                 mapRef.current?.panTo(position);
                             }}
                         />
-                        {/*<div className="advanced-search-button-group">*/}
-                        {/*    <Button*/}
-                        {/*        className="advanced-search-button"*/}
-                        {/*        variant="text"*/}
-                        {/*        onClick={() => setLoadAdvancedSearch(!loadAdvancedSearch)}*/}
-                        {/*    >*/}
-                        {/*        Advanced Search*/}
-                        {/*    </Button>*/}
-                        {/*</div>*/}
                     </div>
-                    {
-                        <div className="advanced-search-group">
-                            {/*<h3>Advanced Criteria</h3>*/}
-                            <div className="advanced-search-activities-group">
-                                <h4>Activites</h4>
-                                <Multiselect
-                                    isObject={false}
-                                    onRemove={(event) => {
-                                        setActivities([...event]);
-                                    }}
-                                    onSelect={(event) => {
-                                        setActivities([...event]);
-                                    }}
-                                    options={apiActivities}
+                    <div className="advanced-search-group">
+                        {/*<h3>Advanced Criteria</h3>*/}
+                        <div className="advanced-search-activities-group">
+                            <h4>Activites</h4>
+                            <Multiselect
+                                isObject={false}
+                                onRemove={(event) => {
+                                    setActivities([...event]);
+                                }}
+                                onSelect={(event) => {
+                                    setActivities([...event]);
+                                }}
+                                options={apiActivities}
+                            />
+                        </div>
+                        <div className="explore-price-group">
+                            <h4 className="explore-price-label">Price</h4>
+                            <div className="price-slider-group">
+                                <Slider
+                                    className="price-slider"
+                                    value={price}
+                                    min={0}
+                                    step={5}
+                                    max={500}
+                                    onChange={handlePriceChange}
+                                    aria-label="Small"
+                                    valueLabelDisplay="auto"
                                 />
                             </div>
-                            <div className="explore-price-group">
-                                <h4 className="explore-price-label">Price</h4>
-                                <div className="price-slider-group">
-                                    <Slider
-                                        className="price-slider"
-                                        value={price}
-                                        min={0}
-                                        step={5}
-                                        max={500}
-                                        onChange={handlePriceChange}
-                                        aria-label="Small"
-                                        valueLabelDisplay="auto"
-                                    />
-                                </div>
-                            </div>
                         </div>
-                    }
+                    </div>
+                    <div className="submit-search-group">
+                    <Button
+                        variant="success"
+                        className="explore-submit-search"
+                        onClick={() => setSubmit(submit + 1)}
+                    >
+                        Submit
+                    </Button>
+                    </div>
                     <div className="map-group">
                         <GoogleMap
                             zoom={10}

@@ -13,19 +13,6 @@ import HeaderBar from "./HeaderBar";
 import DashboardParkCard from "./DashboardParkCard";
 import axios from "axios";
 
-const Person = {
-    firstName: "Francis",
-    lastName: "Boyle",
-};
-const parkExampleArray = [
-    { name: "Alaska National Park" },
-    { name: "Utah National Park" },
-    { name: "Utah National Park" },
-    { name: "Utah National Park" },
-    { name: "Utah National Park" },
-];
-const parkExample = { name: "Alaska National Park" };
-
 function ReviewCard({ review }) {
     return (
         <div className="review-card">
@@ -53,7 +40,7 @@ function CustomerDashboard() {
             price: 0.0,
             activities: [],
         };
-        await axios.post("https://bearcation-backend.herokuapp.com/location/search", recommendDto)
+        await axios.post("http://localhost:80/location/search", recommendDto)
             .then(res => {
                 response = res.data;
                 console.log(response);
@@ -63,7 +50,7 @@ function CustomerDashboard() {
 
     useEffect(async () => {
         let response;
-        await axios.get("https://bearcation-backend.herokuapp.com/review/search/user/" + auth.id)
+        await axios.get("http://localhost:80/review/search/user/" + auth.id)
             .then(res => {
                 response = res.data;
                 console.log(response);

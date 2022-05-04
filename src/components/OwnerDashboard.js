@@ -14,17 +14,9 @@ import "../styles/ownerDashboard.css";
 import HeaderBar from "./HeaderBar";
 import axios from "axios";
 
-const Person = {
-    firstName: "Francis",
-    lastName: "Boyle",
-};
-
-const parkExampleArray = [{ name: "Alaska National Park" }, { name: "Utah National Park" }];
-const parkExample = { name: "Alaska National Park" };
-
 const handleDeleteLocation = async (e, navigate, id) => {
     e.preventDefault();
-    await axios.get("https://bearcation-backend.herokuapp.com/location/delete/" + id)
+    await axios.get("http://localhost:80/location/delete/" + id)
     navigate('/owner-dashboard')
 }
 
@@ -64,7 +56,7 @@ function OwnerDashboard() {
 
     useEffect(async () => {
         let response;
-        await axios.get("https://bearcation-backend.herokuapp.com/location/search/user/" + auth.id)
+        await axios.get("http://localhost:80/location/search/user/" + auth.id)
             .then(res => {
                 console.log(res);
                 response = res.data;

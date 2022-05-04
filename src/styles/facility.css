@@ -72,8 +72,14 @@ a:hover {
     display: inline;
 }
 
-.add-facility-submit {
+.facility-button-group {
     margin-top: 5%;
-    margin-left: 85%;
+    margin-left: 65%;
+    width: 100%;
+}
+.add-facility-submit, .cancel-facility-submit {
     width: 15%;
+}
+.add-facility-submit {
+    margin-right: 5%;
 }
