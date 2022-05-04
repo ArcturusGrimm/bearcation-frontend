@@ -11,17 +11,46 @@ import "../styles/facility.css";
 import useAuth from "../hooks/useAuth";
 import axios from "axios";
 
-const handleSubmit = async (e, navigate, name, description, price, id, city, state, locId) => {
+const handleSubmit = async (e, navigate, name, description, price, id, lat, lng, locId) => {
     e.preventDefault();
     console.log(id);
+
+    if (name.length < 1) {
+        alert("Invalid name");
+        return;
+    }
+    if (name.length > 255) {
+        alert("The name is too long.");
+        return;
+    }
+    if (description.length < 1) {
+        alert("Invalid description");
+        return;
+    }
+    if (description.length > 1000) {
+        alert("The description is too long.");
+        return;
+    }
+    if (isNaN(price) || price < 0){
+        alert("Invalid price.")
+        return;
+    }
+    if (isNaN(lat) || isNaN(lng)){
+        alert("Invalid coordinates")
+        return;
+    }
+    if (lat < -90 || lat > 90 || lng < -180 || lng > 180){
+        alert("Invalid coordinates")
+        return;
+    }
 
     const locationDto = {
         id: locId,
         name: name,
         description: description,
         price: price,
-        latitude: city,
-        longitude: state,
+        latitude: lat,
+        longitude: lng,
     };
     let response;
     await axios.patch("http://localhost:80/location/editLocation", locationDto)
