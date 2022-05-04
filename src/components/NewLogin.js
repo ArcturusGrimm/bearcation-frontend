@@ -17,6 +17,7 @@ const handleSubmit = async (e, setAuth, navigate, email, password, role) => {
     const loginDto = {
         email: email,
         password: password,
+        role: role
     };
     let response;
     await axios.post("http://localhost:80/account/login", loginDto)
