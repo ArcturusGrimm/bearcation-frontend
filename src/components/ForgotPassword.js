@@ -40,9 +40,8 @@ class ForgotPassword extends React.Component {
             password: this.state.password,
             username: this.state.username,
         };
-        alert('Why does this not work?');
+        alert("Why does this not work?");
         //this.props.navigation.navigate('/home')
-
 
         axios.get("https://bearcation-backend.herokuapp.com/user/users", userDto).then((res) => {
             console.log("Password changed successfully!");
@@ -53,7 +52,6 @@ class ForgotPassword extends React.Component {
             });
             alert("The password for " + this.state.username + " has changed.");
         });
-
     }
 
     render() {
