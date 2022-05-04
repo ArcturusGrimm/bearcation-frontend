@@ -4,6 +4,8 @@ import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "react-bootstrap/Button";
+import { useLoadScript, Circle, GoogleMap, Marker } from "@react-google-maps/api";
+
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { MdAddCircleOutline } from "react-icons/md";
@@ -52,6 +54,8 @@ function OwnerDashboard() {
     const { auth } = useAuth();
 
     const [vacationLocation, setVacationLocation] = useState([]);
+    const mapRef = useRef();
+    const contCenterOfUS = useMemo(() => ({ lat: 39.8283, lng: -98.5795 }), []);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -64,7 +68,15 @@ function OwnerDashboard() {
             });
         console.log(response);
         setVacationLocation(response);
+        console.log(response)
     }, []);
+
+    const onLoad = useCallback((map) => (mapRef.current = map), []);
+    const { isLoaded } = useLoadScript({
+        googleMapsApiKey: "AIzaSyA3kz9oH9nUDtfo8K4xpks2-KVkP26-IKo",
+        libraries: ["places"],
+    });
+    if (!isLoaded) return <div>Loading...</div>;
 
     return (
         <div className="owner-dashboard-page">
@@ -88,13 +100,30 @@ function OwnerDashboard() {
                 </Button>
                 <div className="owner-dashboard-parks">
                     <h2>Manage Parks:</h2>
-                    {vacationLocation ? (
+                    {vacationLocation.length > 0 ? (
                         <div className="owner-dashboard-recommended-parks">
                             {vacationLocation.map((park) => DashboardParkCard(park, navigate))}
                         </div>
                     ) : (
-                        <div>Sorry, we do not have any recommended parks.</div>
+                        <div>Add a park by clicking the button above.</div>
                     )}
+                </div>
+                <div className="owner-map-parks">
+                    <h2>Map with Your Parks</h2>
+                    <div className="owner-map-group">
+                        <GoogleMap
+                            zoom={4}
+                            center={contCenterOfUS}
+                            mapContainerClassName="owner-dashboard-map-container"
+                            onLoad={onLoad}
+                        >
+                            {vacationLocation?.map((park) => (
+                                <Marker
+                                    position={{ lat: park.latitude, lng: park.longitude }}
+                                />
+                            ))}
+                        </GoogleMap>
+                    </div>
                 </div>
             </div>
         </div>
