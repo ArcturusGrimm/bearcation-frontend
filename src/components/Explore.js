@@ -91,6 +91,8 @@ function Explore() {
         googleMapsApiKey: "AIzaSyA3kz9oH9nUDtfo8K4xpks2-KVkP26-IKo",
         libraries: ["places"],
     });
+    if (!isLoaded) return <div>Loading...</div>;
+
 
     const searchTopPlaces = async () => {
         //const response = await fetch(`${API_URL}&s=${title}`);
@@ -106,7 +108,6 @@ function Explore() {
     //     "Camping", "Hiking"
     // ];
 
-    if (!isLoaded) return <div>Loading...</div>;
     return (
         <div className="explore-page">
             <HeaderBar />
@@ -168,7 +169,7 @@ function Explore() {
                     </div>
                     <div className="map-group">
                         <GoogleMap
-                            zoom={10}
+                            zoom={5}
                             center={center}
                             mapContainerClassName="map-container"
                             onLoad={onLoad}

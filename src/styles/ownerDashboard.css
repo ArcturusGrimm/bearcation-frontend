@@ -3,6 +3,16 @@
     justify-content: left;
     margin-top: 5%;
     margin-bottom: 5%;
+    padding-bottom: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.owner-dashboard-body {
+    text-align: left;
+    justify-content: left;
+    margin-top: 5%;
+    margin-bottom: 5%;
     margin-left: 10%;
     margin-right: 10%;
 }
@@ -44,4 +54,20 @@
     margin-left: auto;
     margin-right: 2%;
     display: inline;
+}
+
+.owner-map-parks {
+    margin-top: 2%;
+    padding-left: 0%;
+}
+
+.owner-map-group {
+    margin-top: 2%;
+    padding-left: 0%;
+}
+
+.owner-dashboard-map-container {
+    width: 100%;
+    height: 70vh;
+    border: 0.5px solid #000000;
 }

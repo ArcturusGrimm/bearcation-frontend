@@ -156,7 +156,6 @@ function Facility() {
                     {/*                position={vacationLocation}*/}
                     {/*                icon="http://maps.google.com/mapfiles/kml/paddle/blu-circle.png"*/}
                     {/*            />*/}
-
                     {/*            /!* <Circle center={vacationLocation} radius={85000} options={closeOptions} />*/}
                     {/*    <Circle center={vacationLocation} radius={160934} options={middleOptions} />*/}
                     {/*    <Circle center={vacationLocation} radius={402336} options={farOptions} />*/}
