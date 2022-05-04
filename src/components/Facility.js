@@ -13,6 +13,40 @@ import { baseUrl } from "../App";
 
 const handleSubmit = async (e, navigate, name, description, price, id, lat, lng) => {
     e.preventDefault();
+
+    if (name.length == 0) {
+        alert("Invalid name");
+        return;
+    }
+    if (name.length > 255) {
+        alert("The name is too long.");
+        return;
+    }
+    if (description.length < 1) {
+        alert("Invalid description");
+        return;
+    }
+    if (description.length > 1000) {
+        alert("The description is too long.");
+        return;
+    }
+    if (price.length == 0){
+        alert("Invalid price.")
+        return;
+    }
+    if (isNaN(price) || price < 0){
+        alert("Invalid price.")
+        return;
+    }
+    if (lat.length == 0 || lng.length == 0 || isNaN(lat) || isNaN(lng)){
+        alert("Invalid coordinates")
+        return;
+    }
+    if (lat < -90 || lat > 90 || lng < -180 || lng > 180){
+        alert("Invalid coordinates")
+        return;
+    }
+    
     console.log(id);
 
     const locationDto = {

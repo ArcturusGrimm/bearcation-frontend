@@ -10,11 +10,12 @@ import { baseUrl } from "../App";
 const handlePostSubmit = async (e, navigate, auth, rating, review, id) => {
     e.preventDefault();
 
-    if (isNaN(rating) || rating < 0 || rating > 5){
+    
+    if (rating.length == 0 || isNaN(rating) || rating < 0 || rating > 5){
         alert("Enter a rating from 0 to 5.")
         return;
     }
-    if (review.length < 1){
+    if (review.length == 0){
         alert("Please add a description.");
         return;
     }
