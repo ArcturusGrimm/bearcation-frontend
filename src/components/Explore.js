@@ -177,9 +177,12 @@ function Explore() {
                             {vacationLocation && (
                                 <>
                                     {locations?.map((place) => (
-                                        <Marker
-                                            position={{ lat: place.latitude, lng: place.longitude }}
-                                        />
+                                        (place.latitude >= -90 && place.latitude <= 90) && 
+                                        (place.longitude >= -180 && place.longitude <= 180) && (
+                                            <Marker
+                                                position={{ lat: place.latitude, lng: place.longitude }}
+                                            />
+                                        )
                                     ))}
 
                                     <Marker
