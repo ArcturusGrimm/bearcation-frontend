@@ -34,11 +34,7 @@ IMPORTANT! Before logging in as guest, you must first create an account and sign
 
 
 ## Package.json Dependency list
-{
-  "name": "frontend-app",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
+"dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@material-ui/core": "^4.12.4",
@@ -64,33 +60,4 @@ IMPORTANT! Before logging in as guest, you must first create an account and sign
     "react-select": "^5.3.0",
     "use-places-autocomplete": "^2.0.0",
     "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "set HTTPS=true&&react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "index.js",
-  "author": "",
-  "license": "ISC"
-}
+  }
