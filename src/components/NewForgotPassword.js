@@ -9,19 +9,39 @@ import { baseUrl } from "../App";
 
 const handleSubmit = async(e, navigate, firstName, email, password) => {
     e.preventDefault();
-    const userDto = {
-        username: username,
+    const forgotPasswordDto = {
+        first: firstName,
+        email: email,
+        password: password
     };
+    if (password.length < 6) {
+        alert("Password must be at least 6 characters long.");
+        return;
+    }
+    if (password.length > 255) {
+        alert("The password is too long.");
+        return;
+    }
     let response;
-    await axios.post(baseUrl + "user/check", userDto)
+    await axios.post(baseUrl + "account/forgotPassword", forgotPasswordDto)
         .then(res => {
             console.log(res);
             response = res.data;
         })
 
-    console.log("response " + response)
     if(response !== ""){
-        navigate('/home')
+        let response2;
+        await axios.post(baseUrl + "account/updatePassword", forgotPasswordDto)
+            .then(res => {
+                console.log(res);
+                response2 = res.data;
+            })
+        if(response2 !== "") {
+            navigate('/')
+        }
+        else{
+            alert("Error updating password.")
+        }
     }else{
         alert("Credentials do not match any account.")
     }
