@@ -30,3 +30,4 @@ Heroku App Dashboard can be found at: [https://dashboard.heroku.com/apps/bearcat
 Heroku App can be found at: [https://bearcation-frontend.herokuapp.com](https://bearcation-frontend.herokuapp.com)
 
 ## **Note: Make sure the backend is running before attempting to do anything with the Frontend. You WILL NOT be able to log in if the backend is not running.**
+IMPORTANT! Before logging in as guest, you must first create an account and sign in to ensure that the data from the API is pulled correctly.
