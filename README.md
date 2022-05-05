@@ -1,3 +1,14 @@
+# Bearcation by Software Savants (Group 3)
+
+## Group Members 
+- Francis Boyle
+- Patrick Boyle
+- Josh McKone
+- Timmy Frederiksen
+- Yangzekun Gao
+
+## Getting Started
+
 To get started with the project, run the command:
 
 ### `npm install`
