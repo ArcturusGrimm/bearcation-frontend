@@ -13,6 +13,8 @@ import "../styles/login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { baseUrl } from "../App";
 
+
+
 const handleSubmit = async (e, setAuth, navigate, email, password, role) => {
     e.preventDefault();
     const loginDto = {
@@ -29,6 +31,7 @@ const handleSubmit = async (e, setAuth, navigate, email, password, role) => {
 
     let firstName = response.firstName;
     let id = response.id;
+    await prepare();
     if (response !== "" && role === "Customer") {
         // nameLast = response.lastName;
         setAuth({ id, firstName, email, password, role });
@@ -148,3 +151,17 @@ function NewLogin() {
 }
 
 export default NewLogin;
+
+const prepare = async () => {
+    let response1;
+    await axios.get(baseUrl + "location/locations/size")
+        .then(res => {
+            console.log(res);
+            response1 = res.data;
+        });
+
+    if(response1 === 0){
+        await axios.get(baseUrl + "location/loadParks");
+    }
+
+};
