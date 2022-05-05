@@ -27,6 +27,7 @@ function LocationPage() {
 
     const [reviews, setReviews] = useState([]);
     const [locAtr, setLocAtr] = useState([]);
+    const [locRating, setLocRating] = useState(0.0);
 
     useEffect(async () =>{
         let response;
@@ -46,6 +47,15 @@ function LocationPage() {
             })
         console.log(response2)
         setLocAtr(response2);
+
+        let response3;
+        await axios.get(baseUrl + "review/search/location/rating/" + location.state.id)
+            .then(res => {
+                console.log(res);
+                response3 = res.data;
+            })
+        console.log(response3)
+        setLocRating(response3);
 
 
     }, []);
@@ -87,7 +97,7 @@ function LocationPage() {
                 {/* Rating */}
                 <div className="location-rating-group">
                     <h4 className="location-rating-text">
-                        Rating: {locAtr.rating ? locAtr.rating : 2.5}/5
+                        Rating: {locRating ? locRating : 0.0}/5
                     </h4>
                 </div>
 

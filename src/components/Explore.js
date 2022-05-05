@@ -53,6 +53,7 @@ function Explore() {
     const [apiActivities, setApiActivities] = useState();
 
     useEffect(async () => {
+
         let response;
         await axios.get(baseUrl + "location/activities")
             .then(res => {
