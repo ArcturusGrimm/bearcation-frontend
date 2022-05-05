@@ -20,7 +20,6 @@ import { baseUrl } from "../App";
 const handleDeleteLocation = async (e, navigate, id) => {
     e.preventDefault();
     await axios.get(baseUrl + "location/delete/" + id)
-    navigate('/owner-dashboard')
 }
 
 const handleEditLocation = async (e, navigate, id) => {
@@ -28,7 +27,7 @@ const handleEditLocation = async (e, navigate, id) => {
     navigate("/editLocation", { state: { id: id } });
 };
 
-function DashboardParkCard(park, navigate) {
+function DashboardParkCard(park, navigate, refresh, setRefresh) {
     return (
         <div className="owner-dashboard-park-card">
             <h5 className="owner-dashboard-location-text">{park.name}</h5>
@@ -42,7 +41,7 @@ function DashboardParkCard(park, navigate) {
                 <IconButton className="owner-dashboard-delete-button">
                     <DeleteIcon
                         fontSize="small"
-                        onClick={(e) => handleDeleteLocation(e, navigate, park.id)}
+                        onClick={(e) => {handleDeleteLocation(e, navigate, park.id); setRefresh(refresh + 1)}}
                     />
                 </IconButton>
             </div>
@@ -54,6 +53,8 @@ function OwnerDashboard() {
     const { auth } = useAuth();
 
     const [vacationLocation, setVacationLocation] = useState([]);
+    const [refresh, setRefresh] = useState(0);
+    
     const mapRef = useRef();
     const contCenterOfUS = useMemo(() => ({ lat: 39.8283, lng: -98.5795 }), []);
     const navigate = useNavigate();
@@ -69,7 +70,7 @@ function OwnerDashboard() {
         console.log(response);
         setVacationLocation(response);
         console.log(response)
-    }, []);
+    }, [refresh]);
 
     const onLoad = useCallback((map) => (mapRef.current = map), []);
     const { isLoaded } = useLoadScript({
@@ -102,7 +103,7 @@ function OwnerDashboard() {
                     <h2>Manage Parks:</h2>
                     {vacationLocation.length > 0 ? (
                         <div className="owner-dashboard-recommended-parks">
-                            {vacationLocation.map((park) => DashboardParkCard(park, navigate))}
+                            {vacationLocation.map((park) => DashboardParkCard(park, navigate, refresh, setRefresh))}
                         </div>
                     ) : (
                         <div>Add a park by clicking the button above.</div>
@@ -118,9 +119,12 @@ function OwnerDashboard() {
                             onLoad={onLoad}
                         >
                             {vacationLocation?.map((park) => (
-                                <Marker
-                                    position={{ lat: park.latitude, lng: park.longitude }}
-                                />
+                                (park.latitude >= -90 && park.latitude <= 90) && 
+                                (park.longitude >= -180 && park.longitude <= 180) && (
+                                    <Marker
+                                        position={{ lat: park.latitude, lng: park.longitude }}
+                                    />
+                                )
                             ))}
                         </GoogleMap>
                     </div>
