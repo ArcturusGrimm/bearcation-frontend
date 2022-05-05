@@ -23,8 +23,8 @@ import PageNotFound from './components/PageNotFound';
 import Directory from './components/Directory';
 import EditLocation from "./components/EditLocation";
 
-//export const baseUrl = "http://localhost:80/";
-export const baseUrl = "https://bearcation-backend.herokuapp.com/";
+export const baseUrl = "http://localhost:80/";
+//export const baseUrl = "https://bearcation-backend.herokuapp.com/";
 
 function App() {
     return (
